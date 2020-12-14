@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+</head>
+<body  class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+<div class="col-sm-12">
+ <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">系统功能设置</a></h5>
+            <div style="display:inline-block;margin-top:-6px;padding:0;float:left; margin-left:10px;">
+            <a class="btn btn-primary btn-xs" id="tianjiagn" style="border-radius:3px 3px 0px 0px; border-bottom:0px;">添加功能</a>
+            </div>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+        </div>
+        <form method="post" action="__URL__/bz_submit">
+        <div class="ibox-content" style="padding-bottom:0px;">
+              <table class="table table-striped table-hover">
+                  <thead>
+                      <tr>
+                          <th>功能名称</th>
+                          <th class="hidden-xs">ID</th>
+                          <th class="hidden-xs">级别</th>
+                          <th class="hidden-xs">控制器</th>
+                          <th class="hidden-xs">方法</th>
+                          <th>操作</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+<volist name="list" id="vo">
+  <tr>
+   <td><b>{$vo.auth_name}</b></td>
+    <td class="hidden-xs">{$vo.auth_ID}</td>  
+    <td class="hidden-xs">{$vo.auth_level}</td>
+    <td class="hidden-xs">{$vo.auth_c}</td>
+    <td class="hidden-xs">{$vo.auth_a}</td>
+    <td>
+   <!--  <a href="javascript:xiugaign('{$vo.auth_name}','{$vo.auth_ID}','{$vo.auth_level}','{$vo.auth_c}','{$vo.auth_a}')" class="btn btn-white btn-sm">修改</a>
+    <a href="javascript:shanchugn('__URL__/system_yy_del/ID/{$vo.yy_ID}')" class="btn btn-white btn-sm">删除</a> -->
+    </td>
+  </tr>
+          <volist name="vo['erji']" id="erji">
+            <tr>
+            <td>--------{$erji.auth_name}</td>
+            <td class="hidden-xs">{$erji.auth_ID}</td>       
+            <td class="hidden-xs">{$erji.auth_level}</td>
+            <td class="hidden-xs">{$erji.auth_c}</td>
+            <td class="hidden-xs">{$erji.auth_a}</td>
+            <td>
+          <!--   <a href="javascript:xiugaign('{$erji.auth_name}','{$erji.auth_ID}','{$erji.auth_level}','{$erji.auth_c}','{$erji.auth_a}')" class="btn btn-white btn-sm">修改</a>
+            <a href="javascript:shanchugn('__URL__/system_yy_del/ID/{$vo.yy_ID}')" class="btn btn-white btn-sm">删除</a> -->
+            </td>
+          </tr>
+          </volist>
+</volist>
+                  </tbody>
+              </table>
+        </div>
+      </form>
+ </div>
+</div>
+</div>
+
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="tianjiagnnn">
+  <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:310px; height:280px; left:50%; margin-left:-155px;">
+    <div class="layui-layer-title" style="cursor: move;">添加功能</div>
+    <div class="layui-layer-content">
+<div class='animated'><form action='__URL__/auth_insert' method='post' class='form-horizontal'><div class='ibox float-e-margins' style='margin-bottom:0px;'><div class='ibox-content'><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>功能名称</span><input class='form-control' name='auth_name' type='text' /></div><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>父栏目</span><select name='auth_pid' class='form-control'><option value='0'>顶级</option><volist name='yiji' id='vo'><option value='{$vo.auth_ID}'>{$vo.auth_name}</option></volist></select></div><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>控制器</span><input class='form-control' name='auth_c' type='text' /></div><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>方法</span><input class='form-control' name='auth_a' type='text' /></div><div class='form-group' align='center' style='margin-bottom:5px;'><button class='btn btn-primary' type='submit' name='submit_addhuifang'>确定添加</button></div></div></div></form></div>
+    </div>
+<span class="layui-layer-setwin" id="tianjiagnxx"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span>
+  </div>
+</div>
+
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="xiugaignnn">
+  <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:310px; height:280px; left:50%; margin-left:-155px;">
+    <div class="layui-layer-title" style="cursor: move;">修改功能</div>
+    <div class="layui-layer-content">
+<div class='animated'><form action='__URL__/yy_update' method='post' class='form-horizontal'><div class='ibox float-e-margins' style='margin-bottom:0px;'><div class='ibox-content'><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>功能名称</span><input class='form-control' name='auth_name' type='text' value='' id='fuzhi1'/></div><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>父栏目</span><select name='auth_pid' class='form-control'><option value='0'>顶级</option><volist name='yiji' id='vo'><option value='' id='fuzhi2'>{$vo.auth_name}</option></volist></select></div><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>控制器</span><input class='form-control' name='auth_c' type='text' value='' id='fuzhi3'/></div><div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>方法</span><input class='form-control' name='auth_a' type='text' value='' id='fuzhi4'/></div><div class='form-group' align='center' style='margin-bottom:5px;'><button class='btn btn-primary' type='submit' name='submit_addhuifang'>确定修改</button></div></div></div></form></div>
+    </div>
+<span class="layui-layer-setwin" id="xiugaignxx"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span>
+  </div>
+</div>
+
+ <!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- 自定义js --> 
+<script src="{$Think.const.JS_URL}/content.min.js?v=1.0.0"></script>
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script>
+<script>
+function shanchugn(urldz){
+parent.layer.confirm('确定删除？ 删除不能恢复!', {
+    btn: ['确认删除','取消操作'], 
+    shade: false //不显示遮罩
+}, function(){
+location.href = urldz
+}, function(){
+
+});
+};
+$('#tianjiagn').on('click', function(){
+$('#tianjiagnnn').show()
+});
+$('#tianjiagnxx').on('click', function(){
+$('#tianjiagnnn').hide()
+});
+function xiugaign(auth_name,auth_id,auth_level,auth_c,auth_a){
+$('#fuzhi1').val(auth_name);
+$('#fuzhi2').val(auth_id);
+$('#fuzhi2').html(auth_name);
+$('#fuzhi3').val(auth_level);
+$('#fuzhi4').val(auth_c);
+$('#fuzhi5').val(auth_a);
+$('#xiugaignnn').show()
+};
+$('#xiugaignxx').on('click', function(){
+$('#xiugaignnn').hide()
+});
+</script>
+
+<!--全选-->
+<script type="text/javascript">
+  $(function() {
+	 $("#checkAll").click(function() {
+		  $('input[id="quanxuan"]').prop("checked",this.checked); 
+	  });
+	  var $subBox = $("input[id='quanxuan']");
+	  $subBox.click(function(){
+		  $("#checkAll").prop("checked",$subBox.length == $("input[id='quanxuan']:checked").length ? true : false);
+	  });
+  });
+$('.btn-primary').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+</script>
+</body>
+</html> 

@@ -1,0 +1,35 @@
+.page-tabs a.active {
+    background: #1ab394 !important;
+}
+.page-tabs a.active:hover, .page-tabs a.active i:hover{
+	background: #18a689 !important;
+	}
+.btn-primary {
+    background: #1ab394 !important;
+    border-color: #1ab394 !important;
+}
+.btn-primary:hover{
+    background: #18a689 !important;
+    border-color: #18a689 !important;
+}
+.nav > li.active {
+    border-left: 4px solid #18a689;
+}
+.panel-danger > .panel-heading {
+    background: #1ab394 !important;
+    border-color: #1ab394 !important;
+    color: #fff;
+}
+.panel-danger {
+    border-color: #1ab394;
+}
+.wizard > .steps > ul > li{ width:50%;}
+.wizard > .content > .body {
+    float: left;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding:0;
+}
+.wizard-big.wizard > .content { min-height:480px;}
+.wizard > .content { position:relative; }

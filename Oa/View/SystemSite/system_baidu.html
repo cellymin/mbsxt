@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+</head>
+<body oncopy="alert('你想干啥，在我的眼皮底下复制，没有经我同意禁止复制！');return false;" class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+  <div class="col-sm-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><a class="collapse-link">{$yiyuanName}</a></h5>
+        <div style="display:inline-block;margin-top:-6px;padding:0;float:left; margin-left:10px;"> <a class="btn btn-primary btn-xs" id="tianjiays" style="border-radius:3px 3px 0px 0px; border-bottom:0px;">添加账号</a> </div>
+        <div class="ibox-tools"> <a class="collapse-link"> <i class="fa fa-wrench"></i> </a> </div>
+      </div>
+      <div class="ibox-content">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="hidden-xs">ID</th>
+              <th>账号名</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <volist name='list' id='vo'>
+              <tr>
+                <td class="hidden-xs">{$vo.zhanghu_ID}</td>
+                <td>{$vo.zhanghuming}</td>
+                <td><textarea id='zhanghuguize{$i}' rows='12' class='form-control' style="display:none">{$vo.zhanghuguize}</textarea>
+                  <a href="__URL__/system_baidu_stop/ID/{$vo.zhanghu_ID}/yyid/{$yyid}" title="<if condition="$vo.zhanghudel eq 0">停用
+                  <else />
+                  启用
+                  </if>
+                  " class="btn btn-white btn-sm">
+                  <if condition="$vo.zhanghudel eq 0">启用中
+                    <else />
+                    <font color=red>停用中</font></if>
+                  </a> <a onClick="xiugaiys('{$vo.zhanghu_ID}','{$vo.zhanghuming}','******','{$vo.tuiguang_url}','{$vo.zhanghutoken}',
+					  '{$yyid}','zhanghuguize{$i}','{$vo.pcurl}','{$vo.yidongurl}','{$vo.jingjiatongpeifu}','{$vo.weiyifu}','{$vo.yidongweiyifu}','{$vo.pcweiyifu}')" class="btn btn-white btn-sm">修改</a> <a href="javascript:shanchuys('__URL__/system_baidu_del/yyid/{$yyid}/ID/{$vo.zhanghu_ID}')" class="btn btn-white btn-sm">删除</a></td>
+              </tr>
+            </volist>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="tianjiaysnn">
+  <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:100%; height:100%; left:0%; top:0%;overflow-y:auto;">
+    <div class="layui-layer-content">
+      <div class='animated'>
+        <form action='__URL__/baidu_insert' method='post' class='form-horizontal'>
+          <input class='form-control' name='yy_ID' type='hidden' value='{$yyid}' />
+          <div class='ibox float-e-margins' style='margin-bottom:0px;'>
+            <div class='ibox-content'>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>账号</label>
+                  <input class='form-control' name='zhanghuming' type='text' placeholder="请填入百度账户账号"/>
+                </div>
+                <div class="form-group">
+                  <label>密码</label>
+                  <input class='form-control' name='zhanghumima' type='text' placeholder="请填入百度账户密码"/>
+                </div>
+                <div class="form-group">
+                  <label>推广URL</label>
+                  <input class='form-control' name='tuiguang_url' type='text' placeholder="URL请不要输入WWW和http 例：www.baidu.com 请直接填写baidu.com"/>
+                </div>
+                <div class="form-group">
+                  <label>PC_URL前缀</label>
+                  <input class='form-control' name='pcurl' type='text' placeholder="PC端 www等 请用英文“,”(逗号)隔开"/>
+                </div>
+                <div class="form-group">
+                  <label>移动_URL前缀</label>
+                  <input class='form-control' name='yidongurl' type='text' placeholder="移动端，3g,wap,m等 请用英文“,”(逗号)隔开"/>
+                </div>
+                <div class="form-group">
+                  <label>规则</label>
+                  <textarea name='zhanghuguize' rows='12' class='form-control' placeholder="在账户中，对每个病种的计划命名时，以首拼码放在开头；在写规则时进行 首拼码=病种； 比如：fk=妇科；rl=人流；nk=男科"></textarea>
+				   规则说明：在账户中，对每个病种的计划命名时，以首拼码放在开头；在写规则时按照  首拼码=病种； 比如：fk=妇科；ydy=阴道炎；rl=人流；nk=男科，可以把二级病种也按照格式，顺序写入，病种名要完全等于系统病种名称；
+                </div>
+              </div>
+              <div class="col-sm-6 col-kaozuo-6">
+                <div class="form-group">
+                  <label>百度竞价账户通用符</label>
+                  <input class='form-control' name='jingjiatongpeifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分自然流量"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?<font color=red>baiduzhanghu</font>hsz&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982（所有账户都加这段）</span>
+                </div>
+                <div class="form-group">
+                  <label>此账户URL唯一标识符</label>
+                  <input class='form-control' name='weiyifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分不用账户"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?baiduzhanghu&amp;<font color=red>zhanghuA</font>&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982</span>
+                </div>
+                <div class="form-group">
+                  <label>PC端唯一符</label>
+                  <input class='form-control'  name='pcweiyifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分PC端竞价流量"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?baiduzhanghu&amp;hsz$<font color=red>diannao</font>&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982（所有账户都加这段）</span>
+                </div>
+                <div class="form-group">
+                  <label>移动端唯一符</label>
+                  <input class='form-control' name='yidongweiyifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分移动端竞价流量"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?baiduzhanghu&amp;hsz$<font color=red>yidong</font>&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982（所有账户都加这段）</span>
+                </div>
+                <div class="form-group">
+                  <label>token</label>
+                  <input class='form-control' name='zhanghutoken' type='text' />
+                </div>
+                <span style="color:#8B8B8B;">
+	 账户URL设置说明:<br>
+     A账户->  AAA.COM?<font color=red>bdjia&zhanghuA&yidong</font>&bdkeyword={keywordid}&TOP={adposition}&自行发挥<br>
+     B账户->  BBB.COM?<font color=red>bdjia&zhanghuB&diannao</font>&bdkeyword={keywordid}&TOP={adposition}&自行发挥<br>
+     C账户->  CCC.COM?<font color=red>bdjia&zhanghuC&yidong</font>&bdkeyword={keywordid}&TOP={adposition}&自行发挥<br>
+                </span>
+              </div>
+                <div class='form-group' align='center' style='margin-bottom:5px;'>
+                <button class='btn btn-primary' type='submit' name='submit_addhuifang'>确定增加</button>
+                <button class='btn btn-primary' type='button' id="tianjiaysxx">取消</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="xiugaiysnn">
+  <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020;width:100%; height:100%; left:0%; top:0%;overflow-y:auto;">
+    <div class="layui-layer-content">
+      <div class='animated'>
+        <form action='__URL__/system_baidu_update' method='post' class='form-horizontal'>
+          <input type='hidden' name='yy_ID' id='fuzhi5'>
+          <input type='hidden' name='zhanghu_ID' id='fuzhi1'>
+          <div class='ibox float-e-margins' style='margin-bottom:0px;'>
+            <div class='ibox-content' style="overflow-y:auto">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>账号</label>
+                  <input class='form-control' name='zhanghuming' type='text' placeholder="请填入百度账户账号" id='fuzhi2'/>
+                </div>
+                <div class="form-group">
+                  <label>密码</label>
+                  <input class='form-control' name='zhanghumima' type='text' placeholder="请填入百度账户密码" id='fuzhi3'/>
+                </div>
+                <div class="form-group">
+                  <label>推广URL</label>
+                  <input class='form-control' name='tuiguang_url' type='text' placeholder="URL请不要输入WWW和http 例：www.baidu.com 请直接填写baidu.com" id='fuzhi7'/>
+                </div>
+                <div class="form-group">
+                  <label>PC_URL前缀</label>
+                  <input class='form-control' name='pcurl' type='text' placeholder="PC端 www等 请用英文“,”(逗号)隔开" id="fuzhi8"/>
+                </div>
+                <div class="form-group">
+                  <label>移动_URL前缀</label>
+                  <input class='form-control' name='yidongurl' type='text' placeholder="移动端，3g,wap,m等 请用英文“,”(逗号)隔开" id="fuzhi9"/>
+                </div>
+                <div class="form-group">
+                  <label>规则</label>
+                  <textarea name='zhanghuguize' rows='12' class='form-control' placeholder=" 在账户中，对每个病种的计划命名时，以首拼码放在开头；在写规则时进行 首拼码=病种； 比如：fk=妇科；rl=人流；nk=男科；" id='fuzhi6'></textarea>
+				   规则说明：在账户中，对每个病种的计划命名时，以首拼码放在开头；在写规则时按照  首拼码=病种； 比如：fk=妇科；ydy=阴道炎；rl=人流；nk=男科，可以把二级病种也按照格式，顺序写入，病种名要完全等于系统病种名称；
+                </div>
+              </div>
+              <div class="col-sm-6 col-kaozuo-6">
+                <div class="form-group">
+                  <label>百度竞价账户通用符</label>
+                  <input class='form-control' name='jingjiatongpeifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分自然流量" id="fuzhi10"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?<font color=red>baiduzhanghu</font>hsz&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982（所有账户都加这段）</span>
+                </div>
+                <div class="form-group">
+                  <label>此账户URL唯一标识符</label>
+                  <input class='form-control' name='weiyifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分不用账户" id="fuzhi11"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?baiduzhanghu&amp;<font color=red>zhanghuA</font>&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982</span>
+                </div>
+                <div class="form-group">
+                  <label>PC端唯一符</label>
+                  <input class='form-control'  name='pcweiyifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分PC端竞价流量" id="fuzhi13"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?baiduzhanghu&amp;hsz$<font color=red>diannao</font>&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982（所有账户都加这段）</span>
+                </div>
+                <div class="form-group">
+                  <label>移动端唯一符</label>
+                  <input class='form-control' name='yidongweiyifu' type='text' placeholder="所有百度账户着陆页URL设置中加上的一段标识符，用来区分移动端竞价流量" id="fuzhi12"/>
+                  <span style="color:#8B8B8B;">说明：http://www.xxxxx.com/pqy.html?baiduzhanghu&amp;hsz$<font color=red>yidong</font>&amp;TOP={adposition}&amp;MODE={matchtype}&CK-D30982（所有账户都加这段）</span>
+                </div>
+                <div class="form-group">
+                  <label>token</label>
+                  <input class='form-control' name='zhanghutoken' type='text' id='fuzhi4'/>
+                </div>
+				<span style="color:#8B8B8B;">
+	 账户URL设置说明:<br>
+     A账户->  AAA.COM?<font color=red>bdjia&zhanghuA&yidong</font>&bdkeyword={keywordid}&TOP={adposition}&自行发挥<br>
+     B账户->  BBB.COM?<font color=red>bdjia&zhanghuB&diannao</font>&bdkeyword={keywordid}&TOP={adposition}&自行发挥<br>
+     C账户->  CCC.COM?<font color=red>bdjia&zhanghuC&yidong</font>&bdkeyword={keywordid}&TOP={adposition}&自行发挥<br>
+                </span>
+              </div>
+              <div class='form-group' align='center' style='margin-bottom:5px;'>
+                <button class='btn btn-primary' type='submit' name='submit_addhuifang'>确定修改</button>
+                <button class='btn btn-primary' type='button' id="xiugaiysxx">取消</button>
+              </div>
+              <div style="clear:both"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- 自定义js --> 
+<script src="{$Think.const.JS_URL}/content.min.js?v=1.0.0"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script> 
+<script>
+function shanchuys(urldz){
+parent.layer.confirm('确定删除？ 删除不能恢复!', {
+    btn: ['确认删除','取消操作'], 
+    shade: false //不显示遮罩
+}, function(){
+location.href = urldz
+}, function(){
+
+});
+};
+$('#tianjiays').on('click', function(){
+$('#tianjiaysnn').show()
+});
+$('#tianjiaysxx').on('click', function(){
+$('#tianjiaysnn').hide()
+});
+function xiugaiys(id,name,password,url,token,yyid,zhanghuguize,pcurl,yidongurl,jingjiatongpeifu,weiyifu,yidongweiyifu,pcweiyifu){
+$('#fuzhi1').val(id);
+$('#fuzhi2').val(name);
+$('#fuzhi3').val(password);
+$('#fuzhi4').val(token);
+$('#fuzhi5').val(yyid);
+$('#fuzhi6').html($('#'+zhanghuguize).html());
+$('#fuzhi7').val(url);
+$('#fuzhi8').val(pcurl);
+$('#fuzhi9').val(yidongurl);
+$('#fuzhi10').val(jingjiatongpeifu);
+$('#fuzhi11').val(weiyifu);
+$('#fuzhi12').val(yidongweiyifu);
+$('#fuzhi13').val(pcweiyifu);
+$('#xiugaiysnn').show()
+};
+$('#xiugaiysxx').on('click', function(){
+$('#xiugaiysnn').hide()
+});
+$('.btn-primary').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<definitions name="Person" targetNamespace="urn:Person" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Person" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="PersonPort"><operation name="yymd">
+<input message="tns:yymdRequest" />
+<output message="tns:yymdResponse" />
+</operation>
+<operation name="daozhen">
+<input message="tns:daozhenRequest" />
+<output message="tns:daozhenResponse" />
+</operation>
+<operation name="qubiao">
+<input message="tns:qubiaoRequest" />
+<output message="tns:qubiaoResponse" />
+</operation>
+</portType>
+<binding name="PersonBinding" type="tns:PersonPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="yymd">
+<soap:operation soapAction="urn:Person#person#yymd" />
+<input><soap:body use="encoded" namespace="urn:Person" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Person" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="daozhen">
+<soap:operation soapAction="urn:Person#person#daozhen" />
+<input><soap:body use="encoded" namespace="urn:Person" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Person" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="qubiao">
+<soap:operation soapAction="urn:Person#person#qubiao" />
+<input><soap:body use="encoded" namespace="urn:Person" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Person" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="Person">
+<documentation />
+<port name="PersonPort" binding="tns:PersonBinding"><soap:address location="http://120.redcrossfy.com:80/oa/wsdl/server.php" />
+</port>
+</service>
+<message name="yymdRequest">
+<part name="sjhm" type="xsd:string" />
+<part name="hzname" type="xsd:string" />
+<part name="yyh" type="xsd:string" />
+</message>
+<message name="yymdResponse">
+<part name="yymd" type="xsd:string" />
+</message>
+<message name="daozhenRequest">
+<part name="zx_ID" type="xsd:string" />
+<part name="pw" type="xsd:string" />
+</message>
+<message name="daozhenResponse">
+<part name="daozhen" type="xsd:string" />
+</message>
+<message name="qubiaoRequest">
+<part name="starttime" type="xsd:string" />
+<part name="endtime" type="xsd:string" />
+<part name="yyid" type="xsd:string" />
+<part name="pw" type="xsd:string" />
+</message>
+<message name="qubiaoResponse">
+<part name="qubiao" type="xsd:string" />
+</message>
+</definitions>

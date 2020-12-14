@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+<div class="col-sm-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+      <h5><a class="collapse-link">短信模版</a></h5>
+            <div style="display:inline-block;margin-top:-6px;padding:0;float:left; margin-left:10px;">
+            <a class="btn btn-primary btn-xs" id="tianjialy" style="border-radius:3px 3px 0px 0px; border-bottom:0px;">添加短信模版</a>
+            </div>
+      <div class="ibox-tools"> <a class="collapse-link"> <i class="fa fa-wrench"></i> </a> </div>
+    </div>
+    <form method="post" action="__URL__/bz_submit">
+      <div class="ibox-content" style="padding-bottom:0px;">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="hidden-xs">序号</th>
+              <th>短信主题</th>
+              <th class="hidden-xs">短信模版</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <volist name="list" id="vo">
+              <tr>
+                <td class="hidden-xs">{$i}</td>
+                <td>{$vo.message_title}</td>
+                <td class="hidden-xs">{$vo.message_content}</td>
+                <td nowrap>
+                <a href="javascript:xiugaily('{$vo.message_title}','{$vo.duanxin_ID}','{$vo.message_content}')" class="btn btn-white btn-sm">修改</a>
+                <a href="javascript:shanchudx('__URL__/message_del/duanxin_ID/{$vo.duanxin_ID}')" class="btn btn-white btn-sm">删除</a>
+                </td>
+              </tr>
+            </volist>
+            <tr>
+              <td colspan="4"> {$page}说明: 请在需要替换的地方插入[姓名] [预约日期] [预约号]系统将自动替换成匹配数据；<br>
+                如：[姓名]，你好！你的预约日期为[预约日期]，预约号：[预约号]！将替换成 张三，你好！你的预约日期为2015-5-9，预约号：w1234； </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="tianjialynn">
+  <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:310px; height:280px; left:50%; margin-left:-155px;">
+    <div class="layui-layer-title" style="cursor: move;">添加短信模版</div>
+    <div class="layui-layer-content">
+      <div class='animated'>
+        <form action='__URL__/message_insert' method='post' class='form-horizontal'>
+          <div class='ibox float-e-margins' style='margin-bottom:0px;'>
+            <div class='ibox-content'>
+              <div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>短信主题</span>
+                <input class='form-control' name='message_title' type='text' />
+              </div>
+              <div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>短信内容</span>
+                <textarea name='message_content' rows='10' class='form-control'></textarea>
+              </div>
+              <div class='form-group' align='center' style='margin-bottom:5px;'>
+                <button class='btn btn-primary' type='submit' name='submit_addhuifang'>确定添加</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <span class="layui-layer-setwin" id="tianjialyxx"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span> </div>
+</div>
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="xiugailynn">
+  <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:310px; height:280px; left:50%; margin-left:-155px;">
+    <div class="layui-layer-title" style="cursor: move;">修改短信模版</div>
+    <div class="layui-layer-content">
+      <div class='animated'>
+        <form action='__URL__/message_update' method='post' class='form-horizontal'>
+          <div class='ibox float-e-margins' style='margin-bottom:0px;'>
+            <div class='ibox-content'>
+              <div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>短信主题</span>
+                <input class='form-control' name='message_title' type='text' id='fuzhi1' value=''/>
+              </div>
+              <div class='input-group m-b' style='margin-bottom:5px;'><span class='input-group-addon'>短信内容</span>
+                <textarea name='message_content' rows='10' class='form-control' id='fuzhi3'></textarea>
+                <input type='hidden' id='fuzhi2' name='duanxin_ID' value=''>
+              </div>
+              <div class='form-group' align='center' style='margin-bottom:5px;'>
+                <button class='btn btn-primary' type='submit' name='submit_addhuifang'>确定修改</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <span class="layui-layer-setwin" id="xiugailyxx"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span> </div>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- 自定义js --> 
+<script src="{$Think.const.JS_URL}/content.min.js?v=1.0.0"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script> 
+<script>
+function shanchudx(urldz){
+parent.layer.confirm('确定删除？ 删除不能恢复!', {
+    btn: ['确认删除','取消操作'], 
+    shade: false //不显示遮罩
+}, function(){
+location.href = urldz
+}, function(){
+
+});
+};
+$('#tianjialy').on('click', function(){
+$('#tianjialynn').show()
+});
+$('#tianjialyxx').on('click', function(){
+$('#tianjialynn').hide()
+});
+function xiugaily(message_title,duanxin_id,message_content){
+$('#fuzhi1').val(message_title);
+$('#fuzhi2').val(duanxin_id);
+$('#fuzhi3').val(message_content);
+$('#xiugailynn').show()
+};
+$('#xiugailyxx').on('click', function(){
+$('#xiugailynn').hide()
+});
+</script> 
+
+<!--全选--> 
+<script type="text/javascript">
+	$(function() {
+	   $("#checkAll").click(function() {
+			$('input[id="quanxuan"]').prop("checked",this.checked); 
+		});
+		var $subBox = $("input[id='quanxuan']");
+		$subBox.click(function(){
+			$("#checkAll").prop("checked",$subBox.length == $("input[id='quanxuan']:checked").length ? true : false);
+		});
+	});
+$('.btn-primary').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+</script>
+</body>
+</html>

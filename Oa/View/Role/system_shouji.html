@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/switchery/switchery.css" rel="stylesheet">
+</head>
+<body  class="gray-bg">
+<div class="animated">
+    <form action="__URL__/system_shouji_update" method="post" class="form-horizontal">
+      <input class="form-control" name="yy_ID" type="hidden" value="{$yyid}" />
+      <div class="ibox float-e-margins" style="margin-bottom:0px;">
+        <div class="ibox-content">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>是否开启手机验证</label>
+                    <div class="switch">
+                        <div class="onoffswitch">
+                            <input type="checkbox" {$checked} class="onoffswitch-checkbox" id="example1" name='shifoukaiqi'>
+                            <label class="onoffswitch-label" for="example1">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+            </div>
+            <div class="form-group">
+              <label>短信账号</label>
+              <input class='form-control' name='dx_username' type='text' value='{$dx_username}' placeholder="请填入短信账号"/>
+            </div>
+            <div class="form-group">
+              <label>短信密码</label>
+              <input class='form-control' name='dx_password' type='text' value='{$dx_password}' placeholder="请填入短信密码"/>
+            </div>
+          </div>
+            <div class="form-group" align="center" style="margin-bottom:5px;">
+            <button class="btn btn-primary" type="submit" name="submit">确定修改</button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script> 
+<script src="{$Think.const.JS_URL}/plugins/switchery/switchery.js"></script>
+<script type="text/javascript">
+$('.btn-primary').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+</script>
+</body>
+</html>

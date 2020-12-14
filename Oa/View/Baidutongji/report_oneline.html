@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+
+</head>
+<body  class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+<form action="__URL__/report_oneline" method="post" id="contact-form">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins" id="shoujisf1">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">数据汇总报表 筛查选项</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench" id="shoujisf2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" style="padding-left:0px;padding-right:0px;" id="shoujisf3">
+                <div class="col-sm-3">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse}">所属门店</font></span>
+                    <select class="form-control" name="yy_ID" id="register0">
+                      <option value="">所有门店</option>
+                      <volist name="ssyy" id="vo">
+                      <if condition="$vo.yyid eq $dqyyID">
+                      <option value="{$vo.yyid}" selected="selected">{$vo.yyname}</option>
+                      <else/>
+                      <option value="{$vo.yyid}">{$vo.yyname}</option>
+                      </if>
+                      </volist>
+                    </select>
+                    </div>
+                </div>
+                 <div class="col-sm-3">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse1}">百度账户</font></span>
+                    <select class="form-control" name="zhanghuID" id="baiduzhanghao" >
+                      <option value="">所有账户</option>
+                        <volist name="zhanghurow" id="vo">
+                            <if condition="$vo.zhanghu_ID eq $zhanghuID">
+                              <option value="{$vo.zhanghu_ID}" selected="selected">{$vo.zhanghuming}</option>
+                              <else/>
+                              <option value="{$vo.zhanghu_ID}">{$vo.zhanghuming}</option>
+                             </if>
+                         </volist>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse1}">推广设备</font></span>
+                    <select class="form-control" name="zhanghushebei">
+                      <option value="0" {$selectd_shebei}>全部 (PC+移动)</option>
+                      <option value="1" {$selectd_shebeipc}>计算机端</option>
+                      <option value="2" {$selectd_shebeiyd}>手机端</option>
+                    </select>
+                    </div>
+                </div>
+				<div class="col-sm-3">
+					<div class="input-group m-b">
+					  <span class="input-group-addon"><font color="{$yanse1}">咨询量来源</font></span>
+					  <select class="form-control" name="zixunlaiyuan" id="zixunlaiyuan">
+						<option value="1" {$selectd_zxy}>咨询员录入</option>
+						<option value="0" {$selectd_swtdr}>商务通导入</option>
+					  </select>
+					</div>
+                </div>
+                <div class="col-sm-3" id="swtxuanxiang" style="display:none;">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse3}">商务通数据</font></span>
+                    <select name="swtsj" class="form-control">
+					 <option value="1" {$selectd_swtzong}>商务通咨询总数据</option>
+					 <option value="0" {$selectd_swtbaidu}>百度竞价咨询数据</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="zxfangshi">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse3}">咨询方式</font></span>
+                    <select name="zxfs_ID" id="userinfo0" class="form-control zxfspdxj">
+                      <if condition="$dqyyID eq ''">
+                      <option value="">所有</option>
+                      <else />
+                       {$cishu|Zxfs_down_Eyy2=0,$morenZxfsID,0,$dqyyID,###}
+                      </if>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="xxlaiyuan">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse5}">信息来源</font></span>
+                      <select name="xx_ID" id="userinfoXxly" class="form-control">
+                       <option value="">请选择信息来源</option>
+                      <volist name="xinxidata" id="voxinxi">	
+                          <if condition="$voxinxi.ID eq $morenxxID">   
+                          <option value="{$voxinxi.ID}" selected="selected">{$voxinxi.xx_name}</option>
+                          <else />
+                          <option value="{$voxinxi.ID}">{$voxinxi.xx_name}</option>
+                          </if>
+                      </volist>   
+                      </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="xxkefu">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse1}">咨询客服</font></span>
+                    <select class="form-control" name="userID" id="userinfoZxy" >
+                      <option value="">所有咨询员</option>
+                      <volist name="zixunyuan1" id="zixunyuan11">
+                       <if condition="($zixunyuan11.user_ID == $dqzxy)">
+                       <option value="{$zixunyuan11.user_ID}" selected="selected">{$zixunyuan11.userchinaname}</option>
+                       <else />
+                        <option value="{$zixunyuan11.user_ID}">{$zixunyuan11.userchinaname}</option>
+                       </if>
+                    </volist>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="xxbinzhong">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse2}">所属病种</font></span>
+                      <select name="bz_ID" id="userinfoBZ" class="form-control">
+                       <if condition="$dqyyID eq ''">
+                          <option value="">所有</option> 		  
+                        <else />
+                          {$cishu|Column_down_Eyy2=0,$morenBzID,0,$dqyyID,###}
+                       </if>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="shijian11" style="padding-left:0px;padding-right:0px;">
+                    <div class="col-md-6">
+                    <div class="input-group m-b" style="width:100%;">
+                    <input name="zx_timeStart" type="text" class="form-control layer-date" id="shijian1" placeholder="YYYY-MM-DD" value="{$zx_timeStart}"/>
+                    <span class="input-group-addon" id="visible-xs">开始时间</span>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="input-group m-b" style="width:100%;">
+                    <input name="zx_timeEnd" type="text" class="form-control layer-date" id="shijian2" placeholder="YYYY-MM-DD"  value="{$zx_timeEnd}"/>
+                    <span class="input-group-addon" id="visible-xs">结束时间</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="shijian22" style="padding-left:0px;padding-right:0px;display:none;">
+                    <div class="col-md-6">
+                    <div class="input-group m-b" style="width:100%;">
+                    <input name="zx_timeStart2" type="text" class="form-control layer-date" id="shijian3" placeholder="YYYY-MM" value="{$zx_timeStart2}"/>
+                    <span class="input-group-addon" id="visible-xs">开始时间</span>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="input-group m-b" style="width:100%;">
+                    <input name="zx_timeEnd2" type="text" class="form-control layer-date" id="shijian4" placeholder="YYYY-MM"  value="{$zx_timeEnd2}"/>
+                    <span class="input-group-addon" id="visible-xs">结束时间</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-sm-3" style="padding-left:0px;padding-right:0px;">
+                <div class="col-xs-6">
+                <input  class="btn btn-primary" name="submit1" type="submit" id="xuanzhongz" value="确定筛选">
+                </div>
+                <div class="col-xs-6">
+                  <div data-toggle="buttons" class="btn-group">
+                      <label class="btn btn-sm btn-white {$active_tian}" id="option11">
+                          <input type="radio" id="option1" name="tian_geshi" value="天" >天</label>
+                      <label class="btn btn-sm btn-white {$active_yue}" id="option22">
+                          <input type="radio" id="option2" name="tian_geshi" value="月" {$checked_yue}>月</label>
+                  </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+</form>
+<if condition="$tubiao_zixun neq null">
+<div class="col-sm-12 hidden-xs">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">图形报表</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" style="margin-bottom:0px; padding-bottom:0px;">
+         <div class='echarts' id='echarts-bar-chart' ></div>
+        </div>
+    </div>
+</div>
+</if>
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">咨询统计</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" style="margin-bottom:0px; padding-bottom:0px;">
+        <div class="alert alert-warning alert-dismissable hidden-xs">
+         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+         {$sm_zxly}  {$sm_pcorydcx} 
+        </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th class="hidden-xs">百度投放</th>
+							<th class="hidden-xs">百度展现</th>
+							<th class="hidden-xs">点击率</th>
+                            <th class="hidden-xs">百度点击</th>
+                            <th class="hidden-xs">点击->咨询</th>
+                            <th>咨询量</th>
+                            <th>预约量</th>
+                            <th>实际到诊</th>
+                            <th>应到诊</th>  
+                            <th class="hidden-xs">咨询成本</th>
+                            <th class="hidden-xs">预约成本</th>
+                            <th class="hidden-xs">到诊成本</th>        
+                            <th class="hidden-xs">预约率</th>
+                            <th class="hidden-xs">到诊率</th>
+                            <th class="hidden-xs">转化率</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+         <volist name='list1' id='vo'>
+          <tr style="background: #E0E0E0">     
+            <td>{$vo.riqi}</td>
+            <td class="hidden-xs">¥{$vo.baiduxiaofeiheji}</td>
+			<td class="hidden-xs">{$vo.baiduzhanxianheji}</td>
+			<td class="hidden-xs">{$vo.dianjilvheji}</td>
+            <td class="hidden-xs">{$vo.baidudianjiheji}</td>
+            <td class="hidden-xs">{$vo.dianjizixunlvheji}</td>
+            <td>{$vo.zixun}</td>
+            <td>{$vo.yuyue}<if condition="$vo.yuyue gt 0"><span class="pie">{$vo.yuyue}/{$vo.zixun}</span></if></td>
+            <td>{$vo.daozhen}<if condition="$vo.daozhen gt 0"><span class="pie">{$vo.daozhen}/{$vo.zixun}</span></if></td>
+            <td>{$vo.ydaozhen}</td>
+            <td class="hidden-xs">¥{$vo.zixunchengbenheji}</td>
+            <td class="hidden-xs">¥{$vo.yuyuechengbenheji}</td>
+            <td class="hidden-xs">¥{$vo.daozhenchengbenheji}</td>
+            <td class="hidden-xs">{$vo.yuyuelv}</td>
+            <td class="hidden-xs">{$vo.daozhenlv}</td>
+            <td class="hidden-xs">{$vo.zhuanhualv}</td>
+          </tr>
+          <tr class="visible-xs">     
+            <td colspan="11"><small>投放：¥{$vo.baiduxiaofeiheji} 点击：{$vo.baidudianjiheji} 到诊：¥{$vo.daozhenchengbenheji}</small></td>
+          </tr>
+         </volist>
+         <volist name='list' id='vo'>
+          <tr>     
+            <td>{$vo.riqi}</td>
+            <td class="hidden-xs">¥{$vo.xiaofei}</td>
+			<td class="hidden-xs">{$vo.zhanxian}</td>
+			<td class="hidden-xs">{$vo.dianjilv}</td>
+            <td class="hidden-xs">{$vo.dianji}</td>
+            <td class="hidden-xs">{$vo.dianjizixunlv}</td>
+            <td>{$vo.zixun}</td>
+            <td>{$vo.yuyue}</td>
+            <td>{$vo.daozhen}</td>
+            <td>{$vo.ydaozhen}</td>
+            <td class="hidden-xs">¥{$vo.zixunchengben}</td>
+            <td class="hidden-xs">¥{$vo.yuyuechengben}</td>
+            <td class="hidden-xs">¥{$vo.daozhenchengben}</td>
+            <td class="hidden-xs">{$vo.yuyuelv}</td>
+            <td class="hidden-xs">{$vo.daozhenlv}</td>
+            <td class="hidden-xs">{$vo.zhuanhualv}</td>
+          </tr>
+          <tr class="visible-xs">     
+            <td colspan="11"><small>投放：¥{$vo.xiaofei} 点击：{$vo.dianji} 到诊：¥{$vo.daozhenchengben}</small></td>
+          </tr>
+         </volist>
+                        <tr>
+                            <td colspan="16" class="hidden-xs">
+<form method="POST" action="__URL__/ExcleDC_oneline">
+<input type="hidden" name="excle" value='{$daochu}' />
+<input type="hidden" name="excle1" value='{$daochu_heji}' />
+<input type="submit" name="submit_1" class="btn btn-white btn-sm" value="全部导出xls">
+</form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script>
+<!-- Peity -->
+<script src="{$Think.const.JS_URL}/plugins/peity/jquery.peity.min.js"></script>
+<!-- Peity -->
+<script src="{$Think.const.JS_URL}/demo/peity-demo.min.js"></script>
+<!-- 自定义js --> 
+<script src="{$Think.const.JS_URL}/content.min.js?v=1.0.0"></script>
+<!-- layerDate plugin javascript -->
+<script src="{$Think.const.JS_URL}/plugins/layer/laydate/laydate.js"></script>
+<!--二级联动-->
+<script type="text/javascript">
+$(document).ready(function() {
+
+var shijian1 = {
+    elem: '#shijian1',
+    format: 'YYYY-MM-DD',
+    istoday: true,
+    choose: function(datas){
+    shijian2.min = datas;
+    }
+};
+var shijian2 = {
+    elem: '#shijian2',
+    format: 'YYYY-MM-DD',
+    istoday: true,
+    choose: function(datas){
+    shijian1.max = datas;
+    }
+};
+var shijian3 = {
+    elem: '#shijian3',
+    format: 'YYYY-MM',
+    istoday: true,
+    choose: function(datas){
+    shijian4.min = datas;
+    }
+};
+var shijian4 = {
+    elem: '#shijian4',
+    format: 'YYYY-MM',
+    istoday: true,
+    choose: function(datas){
+    shijian3.max = datas;
+    }
+};
+laydate(shijian1);
+laydate(shijian2);
+laydate(shijian3);
+laydate(shijian4);
+
+<if condition="$checked_yue eq 'checked'"> 
+  $("#shijian11").hide();
+  $("#shijian22").show();
+</if>
+
+$("#option11").click(function(){  //日
+  $("#shijian11").show();
+  $("#shijian22").hide();
+  var shijianb1 = $("#shijian3").val() + "-00";
+  var shijianb2 = $("#shijian4").val() + "-00";
+  $("#shijian1").val(shijianb1.substr(0, 10));
+  $("#shijian2").val(shijianb2.substr(0, 10));
+});
+$("#option22").click(function(){  //月
+  $("#shijian11").hide();
+  $("#shijian22").show();
+  var shijianb1 = $("#shijian1").val();
+  var shijianb2 = $("#shijian2").val();
+  $("#shijian3").val(shijianb1.substr(0, 7));
+  $("#shijian4").val(shijianb2.substr(0, 7));
+});
+
+$("#register0").change(function(){
+$.ajax({  //百度账号联动
+type:"post",
+url:"{$Think.const.DQURL}Baidutongji/baiduliandong",
+data:"yy_ID=" + $("#register0").val(),
+success:function(msg){
+$("#baiduzhanghao").html(msg);
+}
+});
+$.ajax({  //咨询员联动
+type:"post",
+url:"{$Think.const.DQURL}ManageZx/zixunyuanLianDong",
+data:"zixunyuan=" + $("#register0").val(),
+success:function(msg){
+$("#userinfoZxy").html(msg);
+}
+});
+$.ajax({  //病种联动
+type:"post",
+url:"{$Think.const.DQURL}Addzixun/bzLianDong",
+data:"bzid=" + $("#register0").val(),
+success:function(msg){
+$("#userinfoBZ").html(msg);
+}
+});
+$.ajax({  //咨询方式联动
+type:"post",
+url:"{$Think.const.DQURL}Addzixun/ZiXunLianDong",
+data:"username=" + $("#register0").val(),
+success:function(msg){
+$("#userinfo0").html(msg);
+}
+});
+$.ajax({  //信息来源联动
+type:"post",
+url:"{$Think.const.DQURL}Addzixun/xxlyLianDong",
+data:"xxid=" + $("#register0").val(),
+success:function(msg){
+$("#userinfoXxly").html(msg);
+}
+});
+$.ajax({  //网站联动
+type:"post",
+url:"{$Think.const.DQURL}Addzixun/wzLianDong",
+data:"wzid=" + $("#register0").val(),
+success:function(msg){
+$("#userinfoWz").html(msg);
+}
+});
+});
+if ($("#zixunlaiyuan").val()==0)
+  {
+  $("#zxfangshi").hide();
+  $("#xxlaiyuan").hide();
+  $("#xxkefu").hide();
+  $("#xxbinzhong").hide();
+  $("#swtxuanxiang").show();
+  }
+else
+  {
+  $("#zxfangshi").show();
+  $("#xxlaiyuan").show();
+  $("#xxkefu").show();
+  $("#xxbinzhong").show();
+  $("#swtxuanxiang").hide();
+  }
+$("#zixunlaiyuan").change(function(){ //咨询量来源
+if ($("#zixunlaiyuan").val()==0)
+  {
+  $("#zxfangshi").hide();
+  $("#xxlaiyuan").hide();
+  $("#xxkefu").hide();
+  $("#xxbinzhong").hide();
+  $("#swtxuanxiang").show();
+  }
+else
+  {
+  $("#zxfangshi").show();
+  $("#xxlaiyuan").show();
+  $("#xxkefu").show();
+  $("#xxbinzhong").show();
+  $("#swtxuanxiang").hide();
+  }
+});
+$('#xuanzhongz').click(function () {  // 加载效果
+  var $btn = $(this);
+  $btn.button('loading');
+  setTimeout(function(){
+	  $btn.button('reset');
+  }, 5000);
+});
+
+});
+</script>
+<if condition="$tubiao_zixun neq ''">
+<!-- ECharts --> 
+<script src="{$Think.const.JS_URL}/plugins/echarts/echarts-all.js"></script> 
+<script>
+$(function() {
+    var i = echarts.init(document.getElementById("echarts-bar-chart"));
+    var q = {
+    title : {
+        text: ' 数据汇总统计图',
+        subtext: ' {$zx_timeStart} - {$zx_timeEnd}'
+    },
+        tooltip: {
+            trigger: "axis"
+        },
+        legend: {
+            data:['投放','咨询成本','咨询','预约','到诊']
+        },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: false},
+            dataView : {show: false, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: false},
+            saveAsImage : {show: true}
+        }
+    },
+        xAxis: [{
+            type: "category",
+            data : [{$tubiao_riqi}]
+        }],
+        yAxis: [{
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} ￥'
+            }
+        },
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value}'
+            }
+        }],
+        series: [{
+            name: "投放",
+            type: "line",
+            data: [{$tubiao_toufang}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name: "咨询成本",
+            type: "line",
+            data: [{$tubiao_zixunchengben}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name: "咨询",
+            type: "line",
+			yAxisIndex: 1,
+            data: [{$tubiao_zixun}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name: "预约",
+            type: "line",
+			yAxisIndex: 1,
+            data: [{$tubiao_yuyue}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name: "到诊",
+            type: "line",
+			yAxisIndex: 1,
+            data: [{$tubiao_daozhen}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+		]
+    };
+    i.setOption(q);
+	window.onresize = i.resize;
+});
+</script>
+</if>
+</body>
+</html>

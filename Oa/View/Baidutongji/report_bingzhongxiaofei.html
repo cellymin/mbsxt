@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+</head>
+<body  class="gray-bg">
+<div class="layui-layer-shade" id="layui-layer-shade1" times="1" style="z-index:19891014; background-color:#000; opacity:0.3; filter:alpha(opacity=30);"></div>
+<div class="layui-layer layui-anim layui-layer-loading " id="layui-layer1" type="loading" times="1" showtime="0" contype="string" style="z-index: 19891015; top:50%; left:50%; margin-top:-19px; margin-left:-110px;"><div class="layui-layer-content layui-layer-loading2"></div><span class="layui-layer-setwin"></span></div>
+
+<div class="wrapper wrapper-content animated fadeInUp">
+<form action="__URL__/report_bingzhongxiaofei" method="post" id="contact-form">
+<div class="col-sm-12">
+    <div class="ibox float-e-margins" id="shoujisf1">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">病种消费报表 筛查选项</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench" id="shoujisf2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" style="padding-left:0px;padding-right:0px;" id="shoujisf3">
+                <div class="col-sm-3">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse}">所属门店</font></span>
+                    <select class="form-control" name="yy_ID" id="register0">
+                      <option value="">所有门店</option>
+                      <volist name="ssyy" id="vo">
+                      <if condition="$vo.yyid eq $dqyyID">
+                      <option value="{$vo.yyid}" selected="selected">{$vo.yyname}</option>
+                      <else/>
+                      <option value="{$vo.yyid}">{$vo.yyname}</option>
+                      </if>
+                      </volist>
+                    </select>
+                    </div>
+                </div>
+                 <div class="col-sm-3">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse1}">百度账户</font></span>
+                    <select class="form-control" name="zhanghuID" id="baiduzhanghao" >
+                      <option value="">所有账户</option>
+                        <volist name="zhanghurow" id="vo">
+                            <if condition="$vo.zhanghu_ID eq $zhanghuID">
+                              <option value="{$vo.zhanghu_ID}" selected="selected">{$vo.zhanghuming}</option>
+                              <else/>
+                              <option value="{$vo.zhanghu_ID}">{$vo.zhanghuming}</option>
+                             </if>
+                         </volist>
+                    </select>
+                    </div>
+                </div>		
+                <div class="col-sm-3" id="shijian11" style="padding-left:0px;padding-right:0px;">
+                    <div class="col-md-6">
+                    <div class="input-group m-b" style="width:100%;">
+                    <input name="zx_timeStart" type="text" class="form-control layer-date" id="shijian1" placeholder="YYYY-MM-DD" value="{$zx_timeStart}"/>
+                    <span class="input-group-addon" id="visible-xs">开始时间</span>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="input-group m-b" style="width:100%;">
+                    <input name="zx_timeEnd" type="text" class="form-control layer-date" id="shijian2" placeholder="YYYY-MM-DD"  value="{$zx_timeEnd}"/>
+                    <span class="input-group-addon" id="visible-xs">结束时间</span>
+                    </div>
+                    </div>
+                </div>
+				  <div class="col-sm-3">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse1}">推广设备</font></span>
+                    <select class="form-control" name="zhanghushebei" id="zhanghushebei">
+                      <option value="0" {$selectd1}>全部 (PC+移动)</option>
+                      <option value="1" {$selectd2}>计算机端</option>
+                      <option value="2" {$selectd3}>手机端</option>
+                    </select>
+                    </div>
+                </div>
+				   <div class="col-sm-3" id="zxfangshi">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse3}">咨询方式</font></span>
+                    <select name="zxfs_ID" id="userinfo0" class="form-control zxfspdxj">
+                      <if condition="$dqyyID eq ''">
+                      <option value="">所有</option>
+                      <else />
+                       {$cishu|Zxfs_down_Eyy2=0,$morenZxfsID,0,$dqyyID,###}
+                      </if>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" id="xxlaiyuan">
+                    <div class="input-group m-b">
+                    <span class="input-group-addon"><font color="{$yanse5}">信息来源</font></span>
+                      <select name="xx_ID" id="userinfoXxly" class="form-control">
+                       <option value="">请选择信息来源</option>
+                      <volist name="xinxidata" id="voxinxi">	
+                          <if condition="$voxinxi.ID eq $morenxxID">   
+                          <option value="{$voxinxi.ID}" selected="selected">{$voxinxi.xx_name}</option>
+                          <else />
+                          <option value="{$voxinxi.ID}">{$voxinxi.xx_name}</option>
+                          </if>
+                      </volist>   
+                      </select>
+                    </div>
+                </div>
+        
+                <div class="col-xs-6">
+                <input  class="btn btn-primary" name="submit1" type="submit" id="xuanzhongz" value="确定筛选">
+                </div>
+        </div>
+    </div>
+</div>
+</form>
+<if condition="$tubiao_zixun neq null">
+<div class="col-sm-12 hidden-xs">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">图形报表</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" style="margin-bottom:0px; padding-bottom:0px;">
+         <div class='echarts' id='echarts-bar-chart' ></div>
+        </div>
+    </div>
+</div>
+</if>
+
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><a class="collapse-link">咨询统计</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content" style="margin-bottom:0px; padding-bottom:0px;">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>病种</th>
+							<th>展现</th>
+							<th class="hidden-xs">点击</th>
+							<th class="hidden-xs">点击率</th>
+                            <th>消费</th>
+							<th class="hidden-xs">咨询</th>
+							<th class="hidden-xs">预约</th>
+                            <th class="hidden-xs">到诊</th>
+                            <th class="hidden-xs">到诊成本</th>
+                            <th class="hidden-xs">消费占比</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+         <volist name='list1' id='vo'>
+          <tr style="background: #E0E0E0">     
+            <td>消费合计：</td>
+            <td>{$vo.xiaofeiheji}</td>
+            <td></td>
+            <td class="hidden-xs"></td>
+            <td class="hidden-xs"></td>
+          </tr>
+         </volist>
+         <volist name='list' id='vo'>
+          <tr style="background: {$vo.backgroundcolor}"> 
+            <td>{$vo.bingzhong}</td>
+			<td>{$vo.zhanxian}</td>
+			<td class="hidden-xs">{$vo.dianji}</td>
+			<td class="hidden-xs">{$vo.dianjilv}</td>
+            <td>{$vo.xiaofei}</td>
+			<td class="hidden-xs">{$vo.zixunliang}</td>
+			<td class="hidden-xs">{$vo.yuyueliang}</td>
+            <td class="hidden-xs">{$vo.daozhen}</td>
+            <td class="hidden-xs">¥{$vo.daozhenchengben}</td>
+            <td class="hidden-xs"><if condition="$vo.xiaofei gt 0"><span class="pie">{$vo.xiaofei}/{$vo.xiaofeiheji}</span></if>{$vo.baifenbi}</td>
+          </tr>
+         </volist>
+                        <tr>
+                            <td colspan="10" class="hidden-xs">
+<form method="POST" action="__URL__/ExcleDC_oneline">
+<input type="hidden" name="excle" value='{$daochu}'/>
+<input type="hidden" name="excle1" value='{$daochu_heji}' />
+<input type="submit" name="submit_1" class="btn btn-white btn-sm" value="全部导出xls">
+</form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script>
+<!-- Peity -->
+<script src="{$Think.const.JS_URL}/plugins/peity/jquery.peity.min.js"></script>
+<!-- Peity -->
+<script src="{$Think.const.JS_URL}/demo/peity-demo.min.js"></script>
+<!-- 自定义js --> 
+<script src="{$Think.const.JS_URL}/content.min.js?v=1.0.0"></script>
+<!-- layerDate plugin javascript -->
+<script src="{$Think.const.JS_URL}/plugins/layer/laydate/laydate.js"></script>
+<!--二级联动-->
+<script type="text/javascript">
+$(document).ready(function() {
+var shijian1 = {
+    elem: '#shijian1',
+    format: 'YYYY-MM-DD',
+    istoday: true,
+    choose: function(datas){
+    shijian2.min = datas;
+    }
+};
+var shijian2 = {
+    elem: '#shijian2',
+    format: 'YYYY-MM-DD',
+    istoday: true,
+    choose: function(datas){
+    shijian1.max = datas;
+    }
+};
+laydate(shijian1);
+laydate(shijian2);
+$("#register0").change(function(){  //百度账号联动
+$.ajax({
+type:"post",
+url:"{$Think.const.DQURL}Baidutongji/baiduliandong",
+data:"yy_ID=" + $("#register0").val(),
+success:function(msg){
+$("#baiduzhanghao").html(msg);
+}
+});
+});
+
+$("#register0").change(function(){  //咨询方式联动
+$.ajax({
+type:"post",
+url:"{$Think.const.DQURL}Addzixun/ZiXunLianDong",
+data:"username=" + $("#register0").val(),
+success:function(msg){
+$("#userinfo0").html(msg);
+}
+});
+});
+$("#register0").change(function(){  //信息来源联动
+$.ajax({
+type:"post",
+url:"{$Think.const.DQURL}Addzixun/xxlyLianDong",
+data:"xxid=" + $("#register0").val(),
+success:function(msg){
+$("#userinfoXxly").html(msg);
+}
+});
+});
+$("#zhanghushebei").change(function(){  //推广设备选择
+layer.tips('{$tishi}', '#zhanghushebei', {
+  time: 7000
+});
+});
+
+layer.closeAll('loading');
+$('#xuanzhongz').click(function () {
+//loading层
+var index = layer.load(2,{
+  shade: [0.3,'#000'] //0.1透明度的白色背景
+});
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 5000);
+});
+
+});
+</script>
+
+<if condition="$tubiao_toufang neq ''">
+<!-- ECharts --> 
+<script src="{$Think.const.JS_URL}/plugins/echarts/echarts-all.js"></script> 
+<script>
+$(function() {
+    var i = echarts.init(document.getElementById("echarts-bar-chart"));
+    var q = {
+    title : {
+        text: ' 病种消费统计图',
+        subtext: ' {$zx_timeStart} - {$zx_timeEnd}'
+    },
+        tooltip: {
+            trigger: "axis"
+        },
+        legend: {
+            data:['消费','到诊成本','到诊']
+        },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: false},
+            dataView : {show: false, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: false},
+            saveAsImage : {show: true}
+        }
+    },
+        xAxis: [{
+            type: "category",
+            data : [{$bingzhong}]
+        }],
+        yAxis: [{
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} ￥'
+            }
+        },
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value}'
+            }
+        }],
+        series: [{
+            name: "消费",
+            type: "line",
+            data: [{$tubiao_toufang}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name: "咨询成本",
+            type: "line",
+            data: [{$tubiao_zixunchengben}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name: "到诊",
+            type: "line",
+			yAxisIndex: 1,
+            data: [{$tubiao_daozhen}],
+			itemStyle: {normal: {
+				 label : {show: true}
+			}},
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+		]
+    };
+    i.setOption(q);
+	window.onresize = i.resize;
+});
+</script>
+</if>
+</body>
+</html>

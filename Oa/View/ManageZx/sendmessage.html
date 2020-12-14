@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+
+</head>
+<body  class="gray-bg">
+
+<div class="animated fadeInUp">
+<form action="{$Think.const.DQURL}SendmessageApi/SendMessage_api" method="post" id="contact-form">
+  <div class="ibox-content">
+
+          <div class="col-sm-4">
+              <div class="input-group m-b">
+              <span class="input-group-addon"><font color="{$yanse}">短信模板</font></span>
+              <select class="form-control" name="yy_ID" id="register0">
+                <option value="">选择模板</option>
+                <volist name="duanxinmoban" id="vo" >
+                 <option value="{$vo.message_content}">{$vo.message_title}</option>
+                </volist>
+              </select>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="input-group m-b">
+              <span class="input-group-addon">姓名</span>
+              <input name="receive_number" value="{$huanzeName}" type="text" class="form-control"/>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="input-group m-b">
+              <span class="input-group-addon">手机号</span>
+              <input name="shouji" value="{$shouji}" type="text" class="form-control"/>
+              </div>
+          </div>
+          <div class="col-sm-12">
+                <textarea class="form-control"  name="message_content" id="editor" style="height:100px"></textarea>
+          </div> 
+      <div class="col-sm-12" style="margin-top:5px; margin-bottom:5px;">    
+         <input type="hidden" value="send" name="action">
+          <input type="hidden" value="{$yyid}" name="yyid">           
+         <button class="btn btn-primary" type="submit" name="submit1" id="xuanzhongz">确认发送</button>
+      </div>
+  </div>
+</form>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script>
+<!-- 自定义js --> 
+<script src="{$Think.const.JS_URL}/content.min.js?v=1.0.0"></script>
+    <!-- layerDate plugin javascript -->
+    <script src="{$Think.const.JS_URL}/plugins/layer/laydate/laydate.js"></script>
+    <script>
+        laydate({elem:"#hello",event:"focus"});var start={elem:"#start",format:"YYYY/MM/DD hh:mm",min:laydate.now(),max:"2099-06-16 23:59",istime:true,istoday:false,choose:function(a){end.min=a;end.start=a}};var end={elem:"#end",format:"YYYY/MM/DD hh:mm",min:laydate.now(),max:"2099-06-16 23:59",istime:true,istoday:false,choose:function(a){start.max=a}};laydate(start);laydate(end);
+    </script>
+<!-- 模板联动 -->
+<script type="text/javascript">
+$(document).ready(function() {
+$("#register0").change(function(){
+var title=$("#register0").val();
+$("#editor").val(title);
+});
+
+$('#xuanzhongz').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+
+});
+</script>
+
+</body>
+</html>

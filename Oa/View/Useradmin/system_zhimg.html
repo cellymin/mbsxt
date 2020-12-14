@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/cropper/cropper.min.css" rel="stylesheet">
+</head>
+<body  class="gray-bg">
+<div class="animated fadeInUp">
+<div class="ibox float-e-margins">
+<!-- <form action="__URL__/system_zhimg" method="post" enctype="multipart/form-data" class="form-horizontal">
+  <div class="ibox-content" style="padding-top:5px;">
+  <div class="row">
+      <div class="col-md-6" style="padding:0px">
+          <div class="image-crop">
+              <img src="{$user_img}"/>
+          </div>
+      </div>
+      <div class="col-md-6" style="padding:0px">
+      <div class="ibox-title">
+      <div class="pull-right">
+      <button class="btn btn-white" id="zoomIn" type="button">放大</button>&nbsp;
+      <button class="btn btn-white" id="zoomOut" type="button">缩小</button><br>
+      <label title="上传图片" for="inputImage" class="btn btn-warning" style=" width:104px; margin-top:20px">
+      <input type="file" accept="image/*" name="file" id="inputImage" class="hide"> 上传新图片</label>
+      </div>
+      <h5>图片预览：</h5>
+      </div>
+          <div class="img-preview img-preview-sm"></div>
+      </div>
+  </div>
+  </div>
+  <div class="form-group" align="center" style="margin-bottom:5px;">
+  <input type="hidden" id="imgurl" name='imgurl'>
+  <button class="btn btn-primary" id="imgan" type="button" name="submit1" value='确定修改'>确定修改</button>
+  </div>
+</form> -->
+  <div class="ibox-content" style="padding-top:5px;">
+<form action="__URL__/system_zhimg" method="post" enctype="multipart/form-data" class="form-horizontal">
+           <div class="input-group m-b" style="margin-bottom:5px;">
+             <span class="input-group-addon">QQ号码</span>
+              <input class="form-control" name="QQhaoma" type="text" />
+           </div>
+           <div class="form-group" align="center" style="margin-bottom:5px;">
+              <button class="btn btn-primary" type="submit" name="submit2" value='获取QQ头像'>获取QQ头像</button>
+           </div>
+</form>
+  </div>
+</div>
+</div>
+<!-- 全局js -->
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script>
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script>
+    <!-- iCheck -->
+    <script src="{$Think.const.JS_URL}/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+    <!-- Image cropper -->
+    <script src="{$Think.const.JS_URL}/plugins/cropper/cropper.min.js"></script>
+
+    <script>
+$(document).ready(function() {
+    var d = $(".image-crop > img");
+    $(d).cropper({
+        aspectRatio: 1,
+        preview: ".img-preview",
+        done: function(k) {}
+    });
+    var e = $("#inputImage");
+    if (window.FileReader) {
+        e.change(function() {
+            var k = new FileReader(),
+            m = this.files,
+            l;
+            if (!m.length) {
+                return
+            }
+            l = m[0];
+            if (/^image\/\w+$/.test(l.type)) {
+                k.readAsDataURL(l);
+                k.onload = function() {
+                    e.val("");
+                    d.cropper("reset", true).cropper("replace", this.result)
+                }
+            } else {
+                showMessage("请选择图片文件")
+            }
+        })
+    } else {
+        e.addClass("hide")
+    }
+	$("#imgan").click(function(){
+	
+		$('#imgurl').val(d.cropper("getDataURL"));
+	//	window.open($('#imgurl').val());
+		$("form").submit();
+	});
+    $("#download").click(function() {
+        window.open(d.cropper("getDataURL"))
+    });
+    $("#zoomIn").click(function() {
+        d.cropper("zoom", 0.1)
+    });
+    $("#zoomOut").click(function() {
+        d.cropper("zoom", -0.1)
+    });
+    $("#rotateLeft").click(function() {
+        d.cropper("rotate", 45)
+    });
+    $("#rotateRight").click(function() {
+        d.cropper("rotate", -45)
+    });
+    $("#setDrag").click(function() {
+        d.cropper("setDragMode", "crop")
+    });
+    function h() {
+        var k = $("body")[0].style;
+        $("#demo_apidemo").colorpicker({
+            color: k.backgroundColor
+        }).on("changeColor",
+        function(l) {
+            k.backgroundColor = l.color.toHex()
+        });
+        $("#demo_forceformat").colorpicker({
+            format: "rgba",
+            horizontal: true
+        });
+        $(".demo-auto").colorpicker();
+        $(".disable-button").click(function(l) {
+            l.preventDefault();
+            $("#demo_endis").colorpicker("disable")
+        });
+        $(".enable-button").click(function(l) {
+            l.preventDefault();
+            $("#demo_endis").colorpicker("enable")
+        })
+    }
+    h();
+    $(".demo-destroy").click(function(k) {
+        k.preventDefault();
+        $(".demo").colorpicker("destroy");
+        $(".disable-button, .enable-button").off("click")
+    });
+    $(".demo-create").click(function(k) {
+        k.preventDefault();
+        h()
+    });
+    var a = $(".back-change")[0].style;
+    $("#demo_apidemo").colorpicker({
+        color: a.backgroundColor
+    }).on("changeColor",
+    function(k) {
+        a.backgroundColor = k.color.toHex()
+    });
+    $(".clockpicker").clockpicker();
+    $('#file-pretty input[type="file"]').prettyFile()
+	$('.btn-primary').click(function () {  //筛选等待
+	  var $btn = $(this);
+	  $btn.button('loading');
+		setTimeout(function(){
+		  $btn.button('reset');
+	  }, 2000);
+	});
+});
+var config = {
+    ".chosen-select": {},
+    ".chosen-select-deselect": {
+        allow_single_deselect: true
+    },
+    ".chosen-select-no-single": {
+        disable_search_threshold: 10
+    },
+    ".chosen-select-no-results": {
+        no_results_text: "Oops, nothing found!"
+    },
+    ".chosen-select-width": {
+        width: "95%"
+    }
+};
+for (var selector in config) {
+    $(selector).chosen(config[selector])
+}
+    </script>
+</body>
+</html>

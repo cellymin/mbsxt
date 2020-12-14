@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗医生CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+</head>
+<body  class="gray-bg">
+<div class="animated fadeInUp">
+<form action="__URL__/zh_update" method="post" class="form-horizontal">
+  <div class="ibox float-e-margins" style="margin-bottom:0px;">
+      <div class="ibox-content">
+           <div class="input-group m-b" style="margin-bottom:5px;">
+            <span class="input-group-addon">登陆账号</span>
+            <input class="form-control" name="username" type="text" value="{$userinfo[0]['username']}" readonly />
+           </div>
+           <div class="input-group m-b" style="margin-bottom:5px;">
+             <span class="input-group-addon">登陆密码</span>
+              <input class="form-control" name="userpsw" type="password" value="****" />
+           </div>
+           <div class="input-group m-b" style="margin-bottom:5px;">
+             <span class="input-group-addon">真实姓名</span>
+              <input class="form-control" name="userchinaname" value="{$userinfo[0]['userchinaname']}" type="text" />
+           </div>
+           <div class="input-group m-b" style="margin-bottom:5px;">
+             <span class="input-group-addon">手机号码</span>
+              <input class="form-control" name="user_shouji" value="{$userinfo[0]['user_shouji']}" type="text" />
+           </div>
+           <if condition="$Think.session.user_role eq 1">
+           
+               <div class="input-group m-b" style="margin-bottom:5px;">
+                 <span class="input-group-addon">所属组</span>
+                    <select name="role_ID" class="form-control">
+                      <option value="">请选择</option>
+                      <volist name='quanxianlist' id='role'>
+                      <if condition=" $userinfo_qxz  eq  $role.role_ID ">
+                      <option value="{$role.role_ID}" selected="selected">{$role.role_name}</option>
+                      <else />
+                      <option value="{$role.role_ID}">{$role.role_name}</option>
+                      </if>    
+                      </volist>
+                    </select>
+               </div>
+               
+               <div class="input-group m-b" style="margin-bottom:5px;">
+                 <span class="input-group-addon">工作日志</span>
+                    <select name="user_rizhi" class="form-control">
+                      <option value="0" {$selectYES}>正常使用</option>
+                      <option value="1" {$selectNO}>无需添加</option>
+                    </select>
+               </div>
+               
+               <div class="form-group" style="margin-bottom:5px; padding-left:10px; padding-right:5px;">
+                   <volist name='yiyuanlist' id='yiyuan'>
+                   <label class="checkbox-inline f-label"><input type="checkbox" name='yy_ID[]' {$yiyuan.checked} value="{$yiyuan.yy_ID}">{$yiyuan.yy_name}&nbsp;&nbsp;</label>
+                   </volist>
+               </div>
+          <else />
+                   <div class="input-group m-b" style="margin-bottom:5px; display:none">
+                     <span class="input-group-addon">所属组</span>
+                        <select name="role_ID" class="form-control">
+                          <option value="">请选择</option>
+                          <volist name='quanxianlist' id='role'>
+                          <if condition=" $userinfo_qxz  eq  $role.role_ID ">
+                          <option value="{$role.role_ID}" selected="selected">{$role.role_name}</option>
+                          <else />
+                          <option value="{$role.role_ID}">{$role.role_name}</option>
+                          </if>    
+                          </volist>
+                        </select>
+                   </div>
+				    <div class="input-group m-b" style="margin-bottom:5px; display:none">
+						 <span class="input-group-addon">工作日志</span>
+							<select name="user_rizhi" class="form-control">
+							  <option value="0" {$selectYES}>正常使用</option>
+							  <option value="1" {$selectNO}>无需添加</option>
+							</select>
+                   </div>
+                   <div class="form-group" style="margin-bottom:5px; padding-left:10px; padding-right:5px; display:none">
+                       <volist name='yiyuanlist' id='yiyuan'>
+                       <label class="checkbox-inline f-label"><input type="checkbox" name='yy_ID[]' {$yiyuan.checked} value="{$yiyuan.yy_ID}">{$yiyuan.yy_name}&nbsp;&nbsp;</label>
+                       </volist>
+                   </div> 
+           </if>
+           <div class="form-group" align="center" style="margin-bottom:5px;">
+     <button class="btn btn-primary" type="submit" name="submit_addhuifang">确定修改</button>
+           </div>
+      </div>
+  </div>
+</form>
+</div> 
+<!-- 全局js -->
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- iCheck -->
+<script src="{$Think.const.JS_URL}/plugins/iCheck/icheck.min.js"></script>
+<script>
+$(document).ready(function () {
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
+	});
+$('.btn-primary').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+});
+</script>
+</body>
+</html>

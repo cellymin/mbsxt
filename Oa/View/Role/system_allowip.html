@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<title>苗博士CRM网络管理系统</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/plugins/switchery/switchery.css" rel="stylesheet">
+</head>
+<body  class="gray-bg">
+<div class="animated">
+    <form action="__URL__/system_allowip_update" method="post" class="form-horizontal">
+      <input class="form-control" name="yy_ID" type="hidden" value="{$yyid}" />
+      <div class="ibox float-e-margins" style="margin-bottom:0px;">
+        <div class="ibox-content">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>是否启用白名单</label>
+                    <div class="switch">
+                        <div class="onoffswitch">
+                            <input type="checkbox" {$checked} class="onoffswitch-checkbox" id="example1" name='shifoukaiqi'>
+                            <label class="onoffswitch-label" for="example1">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+            </div>
+                <div class="tabs-container" style="margin:-5px;">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">IP地址</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">IP段</a>
+                        </li>
+						<li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">免验证账号</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                                <textarea name="IPdizhi"  rows="12" class="form-control" placeholder="请输入IP号，多IP请用;号隔开，如（123.123.1.1;124.124.1.1;125.125.1.1）">{$IPdizhi}</textarea>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                                <textarea name="IPdizhiduan"  rows="12" class="form-control" placeholder="请输入IP段前两段，多段请用;号隔开，*号为1-255全部，如（123.123;124.124;125.125）">{$IPdizhiduan}</textarea>
+                        </div>
+						<div id="tab-3" class="tab-pane">
+                                <textarea name="allow_username" rows="12" class="form-control" placeholder="请输入免检测账号，多账号请用英文','号隔开">{$allow_username}</textarea>
+                        </div>
+                    </div>
+                </div>
+          </div>
+            <div class="form-group" align="center" style="margin-bottom:5px; margin-top:10px;">
+            <button class="btn btn-primary" type="submit" name="submit_addhuifang">确定修改</button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script> 
+<script src="{$Think.const.JS_URL}/plugins/switchery/switchery.js"></script>
+<script type="text/javascript">
+$('.btn-primary').click(function () {  //筛选等待
+  var $btn = $(this);
+  $btn.button('loading');
+    setTimeout(function(){
+      $btn.button('reset');
+  }, 2000);
+});
+</script>
+</body>
+</html>

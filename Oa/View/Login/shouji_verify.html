@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>苗博士CRM网络管理系统-验证</title>
+<link href="{$Think.const.CSS_URL}/bootstrap.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/font-awesome.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/animate.min.css" rel="stylesheet">
+<link href="{$Think.const.CSS_URL}/style.min.css" rel="stylesheet">
+<link href="{$Think.const.JS_URL}/plugins/layer/skin/layer.css" rel="stylesheet">
+
+
+
+
+
+</head>
+
+<body  class="gray-bg">
+<div class="lock-word animated fadeInDown"> </div>
+<div class="middle-box text-center lockscreen animated fadeInDown" style=" width:220px;">
+  <div>
+    <div class="m-b-md">
+    <img alt="image" class="img-circle circle-border" src="<if condition="$qq eq ''">{$Think.const.IMG_URL}/a{:mt_rand(1,9)}.jpg<else />{$user_img}</if>" style="width:{$qqdaxiao}; height:{$qqdaxiao};">
+    </div>
+    <h3>{$userchinaname}</h3>
+    <p>安全提示：系统已开启手机验证登陆</p>
+    <form class="m-t" method="post" action="__URL__/shoujiverify_check">
+      <div class="input-group">
+         <input type="text" class="form-control" placeholder="验证码" id="code" name="shouji_verify" required="required"> <span class="input-group-btn"> <input type="button" class="btn" onclick="tijiao();settime(this);" value="点击获取" ></span>
+      </div>
+      <button type="submit" class="btn btn-primary block full-width" style=" margin-top:20px;">提交验证</button>
+    </form>
+  </div>
+</div>
+
+<!-- 全局js --> 
+<script src="{$Think.const.JS_URL}/jquery-2.1.1.min.js"></script> 
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
+<!-- layerjs --> 
+<script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script>
+<script type="text/javascript"> 
+function tijiao() {
+  $.ajax({
+	  type: "post",
+	  url: "{$Think.const.DQURL}login/getshouji_verify",
+	  data: "yhm=" + $("#username").val(),
+	  success: function(msg) {
+		parent.layer.msg(msg);
+	  }
+  });
+}
+var countdown=30;
+function settime(val) { 
+if (countdown == 0) { 
+val.removeAttribute("disabled");    
+val.value="获取验证码"; 
+countdown=30;
+} else { 
+val.setAttribute("disabled", true); 
+val.value="重新发送(" + countdown + ")"; 
+countdown--; 
+setTimeout(function() { 
+settime(val) 
+},1000) 
+} 
+} 
+</script>
+</body>
+</html>
