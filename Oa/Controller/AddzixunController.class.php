@@ -296,9 +296,10 @@ class AddzixunController extends \Component\AdminController
 	{
 		$sjhm = htmlspecialchars(trim($_POST['sjhm']));
 		$haoma = m('huanzeyuyue');
+		$haomaman = m('managezx');
 		$haoma1 = $haoma->where('shouji= \'' . $sjhm . '\'')->select();
-
-		if (!empty($haoma1)) {
+		$haoma2 = $haomaman->where('shouji= \'' . $sjhm . '\'')->select();
+		if (!empty($haoma1) || !empty($haoma2)) {
 			echo '<span id=\'sjjc-error\' class=\'help-block m-b-none\'><i class=\'fa icon-info-sign\'></i>手机号已存在 <a href=javascript:sjhm(\'' . $sjhm . '\');>查看</a></span>';
 		}
 	}

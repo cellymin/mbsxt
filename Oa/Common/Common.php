@@ -1047,6 +1047,11 @@ function last_month_today($time)
 
 	return date(date('Y-m', $last_month_time) . '-d', $time);
 }
+function last_month_lastday(){
+	$tianshu = date('d');
+	return date("Y-m-d", strtotime(-$tianshu.' day')).' 23:59:59';
+}
+
 
 function SaveViaTempFile($objWriter)
 {

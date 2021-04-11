@@ -103,10 +103,17 @@
 							
 							<!-- <input name="zx_time" type="text" class="form-control" id="userinfozxtime"  placeholder="YYYY-MM-DD" onClick="laydate({istime: true, format: 'YYYY-MM-DD'})"  value='{$dqtime|substr=0,10}' readonly/> -->
 							
-							<input name="zx_time" type="text" class="form-control"  placeholder="YYYY-MM-DD" onClick="laydate({istime:true, format: 'YYYY-MM-DD'})"  value='{$dqtime|substr=0,10}' readonly/>
-							
-							
-							
+							<input name="zx_time" type="text" class="form-control"  placeholder="YYYY-MM-DD"
+                                   <php>
+                                       if($_SESSION['user_role']==1){
+                                   </php>
+                                   onClick="laydate({istime:true, format: 'YYYY-MM-DD'})"
+                                <php>
+                                    }
+                                </php>
+
+                                   value='{$dqtime|substr=0,10}' readonly/>
+
 							</div>
 							<div class="col-sm-5">
 							<input name="zx_timee" type="text" class="form-control clockpicker" placeholder="hh:mm" value='{$dqtime|substr=11,5}'/></div>
@@ -370,7 +377,7 @@
                     </div>
                 </div>
             </div>
-         	         
+
      </div>
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
@@ -688,6 +695,9 @@ $(document).ready(function() {
       url: "{$Think.const.DQURL}Addzixun/shoujijc",
       data: "sjhm=" + $("#sjjc").val(),
       success: function(msg) {
+          if(msg.length>1){
+              $("#sjjc").val('');
+          }
         $("#userinfosjjc").html(msg);
       }
     });

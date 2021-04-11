@@ -11,13 +11,16 @@ class ManageZxController extends \Component\AdminController
 	{
 		$canshu = i('request.');
 
-		if (empty($canshu['zx_timeStart'])) {
-			$canshu['zx_timeStart'] = date('Y-m-d', strtotime('-365 days'));
+		if(empty($canshu)){
+			if (empty($canshu['zx_timeStart'])) {
+				$canshu['zx_timeStart'] = date('Y-m-d', strtotime('-365 days'));
+			}
+
+			if (empty($canshu['zx_timeEnd'])) {
+				$canshu['zx_timeEnd'] = date('Y-m-d');
+			}
 		}
 
-		if (empty($canshu['zx_timeEnd'])) {
-			$canshu['zx_timeEnd'] = date('Y-m-d');
-		}
 
 		$starttime = strtotime($canshu['zx_timeStart']);
 		$endtime = strtotime($canshu['zx_timeEnd']);
@@ -1207,8 +1210,8 @@ class ManageZxController extends \Component\AdminController
 		$maxsql = 'select count(zx_ID) as total from oa_managezx  where 1=1 ' . $tiaojian . '';
 		$maxtiaoshu = $user->query($maxsql);
 
-		if (3000 < $maxtiaoshu[0]['total']) {
-			js_alert('', '最多导出行数3000行，请分段查询');
+		if (6000 < $maxtiaoshu[0]['total']) {
+			js_alert('', '最多导出行数6000行，请分段查询');
 			exit();
 		}
 

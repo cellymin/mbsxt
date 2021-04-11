@@ -352,7 +352,8 @@ class TongjiController extends \Component\AdminController
 		$arr = unserialize($_POST['excle']);
 		$arr_heji = unserialize($_POST['excle1']);
 		vendor('PHPExcel.Classes.PHPExcel');
-		$objPHPExcel = new \Think\PHPExcel();
+//		$objPHPExcel = new \Think\PHPExcel();
+		$objPHPExcel = new \PHPExcel();
 		$objPHPExcel->getProperties()->setCreator('liufeng')->setLastModifiedBy('Maarten Balliauw')->setTitle('Office 2007 XLSX Test Document')->setSubject('Office 2007 XLSX Test Document')->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')->setKeywords('office 2007 openxml php')->setCategory('Test result file');
 		$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(24);
 		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
@@ -497,7 +498,8 @@ class TongjiController extends \Component\AdminController
 		$arr = unserialize($_POST['excle']);
 		$arr_heji = unserialize($_POST['excle1']);
 		vendor('PHPExcel.Classes.PHPExcel');
-		$objPHPExcel = new \Think\PHPExcel();
+//		$objPHPExcel = new \Think\PHPExcel();
+		$objPHPExcel = new \PHPExcel();
 		$objPHPExcel->getProperties()->setCreator('liufeng')->setLastModifiedBy('Maarten Balliauw')->setTitle('Office 2007 XLSX Test Document')->setSubject('Office 2007 XLSX Test Document')->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')->setKeywords('office 2007 openxml php')->setCategory('Test result file');
 		$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(24);
 		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
@@ -679,7 +681,8 @@ class TongjiController extends \Component\AdminController
 		$arr = unserialize($_POST['excle']);
 		$arr_heji = unserialize($_POST['excle1']);
 		vendor('PHPExcel.Classes.PHPExcel');
-		$objPHPExcel = new \Think\PHPExcel();
+//		$objPHPExcel = new \Think\PHPExcel();
+		$objPHPExcel = new \PHPExcel();
 		$objPHPExcel->getProperties()->setCreator('liufeng')->setLastModifiedBy('Maarten Balliauw')->setTitle('Office 2007 XLSX Test Document')->setSubject('Office 2007 XLSX Test Document')->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')->setKeywords('office 2007 openxml php')->setCategory('Test result file');
 		$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(24);
 		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
@@ -867,7 +870,8 @@ class TongjiController extends \Component\AdminController
 		$arr = unserialize($_POST['excle']);
 		$arr_heji = unserialize($_POST['excle1']);
 		vendor('PHPExcel.Classes.PHPExcel');
-		$objPHPExcel = new \Think\PHPExcel();
+//		$objPHPExcel = new \Think\PHPExcel();
+		$objPHPExcel = new \PHPExcel();
 		$objPHPExcel->getProperties()->setCreator('liufeng')->setLastModifiedBy('Maarten Balliauw')->setTitle('Office 2007 XLSX Test Document')->setSubject('Office 2007 XLSX Test Document')->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')->setKeywords('office 2007 openxml php')->setCategory('Test result file');
 		$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(24);
 		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
@@ -1062,7 +1066,8 @@ class TongjiController extends \Component\AdminController
 		$arr_heji = unserialize($_POST['excle1']);
 		$keywords = $_POST['keywords'];
 		vendor('PHPExcel.Classes.PHPExcel');
-		$objPHPExcel = new \Think\PHPExcel();
+//		$objPHPExcel = new \Think\PHPExcel();
+		$objPHPExcel = new \PHPExcel();
 		$objPHPExcel->getProperties()->setCreator('liufeng')->setLastModifiedBy('Maarten Balliauw')->setTitle('Office 2007 XLSX Test Document')->setSubject('Office 2007 XLSX Test Document')->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')->setKeywords('office 2007 openxml php')->setCategory('Test result file');
 		$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(24);
 		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
