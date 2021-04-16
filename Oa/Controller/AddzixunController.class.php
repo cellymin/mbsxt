@@ -295,12 +295,14 @@ class AddzixunController extends \Component\AdminController
 	public function shoujijc()
 	{
 		$sjhm = htmlspecialchars(trim($_POST['sjhm']));
-		$haoma = m('huanzeyuyue');
-		$haomaman = m('managezx');
-		$haoma1 = $haoma->where('shouji= \'' . $sjhm . '\'')->select();
-		$haoma2 = $haomaman->where('shouji= \'' . $sjhm . '\'')->select();
-		if (!empty($haoma1) || !empty($haoma2)) {
-			echo '<span id=\'sjjc-error\' class=\'help-block m-b-none\'><i class=\'fa icon-info-sign\'></i>手机号已存在 <a href=javascript:sjhm(\'' . $sjhm . '\');>查看</a></span>';
+		if(intval($sjhm)>0){
+			$haoma = m('huanzeyuyue');
+			$haomaman = m('managezx');
+			$haoma1 = $haoma->where('shouji= \'' . $sjhm . '\'')->select();
+			$haoma2 = $haomaman->where('shouji= \'' . $sjhm . '\'')->select();
+			if (!empty($haoma1) || !empty($haoma2)) {
+				echo '<span id=\'sjjc-error\' class=\'help-block m-b-none\'><i class=\'fa icon-info-sign\'></i>手机号已存在 <a href=javascript:sjhm(\'' . $sjhm . '\');>查看</a></span>';
+			}
 		}
 	}
 
@@ -319,10 +321,14 @@ class AddzixunController extends \Component\AdminController
 	{
 		$sjhm = htmlspecialchars(trim($_POST['sjhm']));
 		$arr = explode('|', $sjhm);
+		if(!(intval($arr[0])>0)){
+			echo 'okokok';
+		}
 		$haoma = m('huanzeyuyue');
+		$haomaman = m('managezx');
 		$haoma1 = $haoma->where('shouji= \'' . $arr[0] . '\'')->select();
-
-		if (!empty($haoma1)) {
+		$haoma2 = $haomaman->where('shouji= \'' . $arr[0] . '\'')->select();
+		if (!empty($haoma1) || !empty($haoma2)) {
 			$shezhi = $haoma->query('select count(qj_ID) as total from oa_quanjushezhi where qj_ID=7 and find_in_set(' . $arr[1] . ', qj_yyid)');
 
 			if ($shezhi[0]['total'] == '0') {
@@ -375,6 +381,16 @@ class AddzixunController extends \Component\AdminController
 	{
 		$hide = $_POST['chongfutijiao'];
 		if (($hide != '') && ($hide == $_SESSION['conn'])) {
+			$shouji = $_POST['shouji'];
+			$haoma = m('huanzeyuyue');
+			$haomaman = m('managezx');
+			$haoma1 = $haoma->where('shouji= \'' . $shouji . '\'')->select();
+			$haoma2 = $haomaman->where('shouji= \'' . $shouji . '\'')->select();
+			if((!empty($haoma1) || !empty($haoma2)) && intval($shouji)>0){
+				js_alert('add', '手机号重复');
+				exit();
+			}
+
 			unset($_SESSION['conn']);
 			$huanze = m('huanze');
 
