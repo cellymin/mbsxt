@@ -15,7 +15,76 @@
 <link href="{$Think.const.CSS_URL}/style.min.css?v=3.2.0" rel="stylesheet">
 </head>
 <body  class="gray-bg">
+<style>
 
+    .iconfont {
+        font-family: "iconfont" !important;
+        font-size: 14px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.1px;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    @font-face {
+        font-family: 'iconfont';  /* project id 987132 */
+        src: url('//at.alicdn.com/t/font_987132_huga9t6yr1s.eot');
+        src: url('//at.alicdn.com/t/font_987132_huga9t6yr1s.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_987132_huga9t6yr1s.woff2') format('woff2'),
+        url('//at.alicdn.com/t/font_987132_huga9t6yr1s.woff') format('woff'),
+        url('//at.alicdn.com/t/font_987132_huga9t6yr1s.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_987132_huga9t6yr1s.svg#iconfont') format('svg');
+    }
+
+
+    .add_div {
+        width: 400px;
+        height: 500px;
+        border: solid #ccc 1px;
+        margin-top: 40px;
+        margin-left: 170px;
+        padding-left: 20px;
+    }
+
+    .file-list {
+        height: 125px;
+        display: none;
+        list-style-type: none;
+        padding-left: 0px;
+    }
+
+    .file-list img {
+        max-width: 70px;
+        vertical-align: middle;
+    }
+
+    .file-item {
+        float: left;
+        border:solid red px;
+        margin:5px 10px;
+    }
+
+
+
+    .add{
+        border: solid #ccc 1px;
+        border-radius: 5px;
+        width: 45px;
+        background-color: #ccc;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
+    }
+    .file-del {
+        float: right;
+        margin-top: -9px;
+        margin-left: -2px;
+        cursor: pointer;
+        font-size: 12px;
+        z-index: 100;
+        position: absolute;
+    }
+</style>
 <div class="wrapper wrapper-content animated fadeInUp">
 <div class="col-sm-12">
 <form action="__URL__/manage" method="post" id="contact-form">
@@ -35,7 +104,7 @@
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse}">所属门店</font></span>
                     <select class="form-control" name="yy_ID" id="register0">
-                    <if condition="$countyy gt 1">  
+                    <if condition="$countyy gt 1">
                       <option value="">所有门店</option>
                     </if>
                       <volist name="ssyy" id="vo">
@@ -68,7 +137,7 @@
                     <span class="input-group-addon"><font color="{$yanse2}">所属病种</font></span>
                       <select name="bz_ID" id="userinfoBZ" class="form-control">
                        <if condition="$dqyyID eq '' and $countyy gt 1">
-                          <option value="">所有</option> 		  
+                          <option value="">所有</option>
                         <else />
                           {$cishu|Column_down_Eyy2=0,$morenBzID,0,$dqyyID,###}
                        </if>
@@ -104,13 +173,13 @@
                     <span class="input-group-addon"><font color="{$yanse5}">信息来源</font></span>
                       <select name="xx_ID" id="userinfoXxly" class="form-control">
                        <option value="">请选择信息来源</option>
-                      <volist name="xinxidata" id="voxinxi">	
-                          <if condition="$voxinxi.ID eq $morenxxID">   
+                      <volist name="xinxidata" id="voxinxi">
+                          <if condition="$voxinxi.ID eq $morenxxID">
                           <option value="{$voxinxi.ID}" selected="selected">{$voxinxi.xx_name}</option>
                           <else />
                           <option value="{$voxinxi.ID}">{$voxinxi.xx_name}</option>
                           </if>
-                      </volist>   
+                      </volist>
                       </select>
                     </div>
                 </div>
@@ -132,12 +201,12 @@
                     <select name="laiyuanwangzhan" id="userinfoWz" class="form-control">
                       <option value="">请选择网站</option>
                       <volist name="wangzhandata" id="vowangzhan">
-                        <if condition="$vowangzhan.wangzhan_ID eq $morenwzID">   
+                        <if condition="$vowangzhan.wangzhan_ID eq $morenwzID">
                             <option value="{$vowangzhan.wangzhan_ID}" selected="selected">{$vowangzhan.wangzhan_url}</option>
                             <else />
                             <option value="{$vowangzhan.wangzhan_ID}">{$vowangzhan.wangzhan_url}</option>
                             </if>
-                        </volist>   
+                        </volist>
                     </select>
                     </div>
                 </div>
@@ -147,12 +216,12 @@
                       <select name="yuyueyishengID" id="userinfoYuyueys" class="form-control">
                             <option value="">请选择医生</option>
                         <volist name="doctorData" id="vodoc">
-                          <if condition="$vodoc.doctor_ID eq $morendocID">   
+                          <if condition="$vodoc.doctor_ID eq $morendocID">
                               <option value="{$vodoc.doctor_ID}" selected="selected">{$vodoc.doctor_name}</option>
                               <else />
                               <option value="{$vodoc.doctor_ID}">{$vodoc.doctor_name}</option>
                               </if>
-                          </volist> 
+                          </volist>
                       </select>
                     </div>
                 </div>
@@ -160,7 +229,7 @@
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse18}">QQ/微信</font></span>
                       <input name="QQhaoma" type="text" value="{$serchQQhaoma}"  class="form-control"/>
-                    
+
                     </div>
                 </div>
 
@@ -168,10 +237,10 @@
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse12}">IP/永久身份</font></span>
                       <input name="IPdizhi" type="text" value="{$serchIPdizhi}"  class="form-control"/>
-                    
+
                     </div>
                 </div>
-               
+
                <!--  <div class="col-sm-3">
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse15}">是否住院</font></span>
@@ -182,7 +251,7 @@
                       </select>
                     </div>
                 </div> -->
-				
+
                   <div class="col-sm-3">
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse16}">消费状态</font></span>
@@ -193,20 +262,20 @@
                       </select>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-3">
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse6}">搜索/匹配词</font></span>
                      <input name="guanjianci" type="text" value="{$serchguanjianci}" class="form-control"/>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-3">
                     <div class="input-group m-b">
                     <span class="input-group-addon"><font color="{$yanse17}">排序方式</font></span>
                       <select name="paixu" id="paixufanshi" class="form-control">
                             <option value="zx_time" {$huichuanpx0}>咨询时间</option>
-                            <option value="yuyueTime" {$huichuanpx1}>预约日期</option>                   
+                            <option value="yuyueTime" {$huichuanpx1}>预约日期</option>
                             <option value="userID" {$huichuanpx2}>咨询员</option>
                             <option value="huifangcishu" {$huichuanpx3}>回访次数</option>
                             <option value="guanjianci" {$huichuanpx4}>搜索关键词</option>
@@ -269,7 +338,7 @@
         <div class="ibox-title">
          <form action="__URL__/user_showmenu" method="post">
             <h5><a class="collapse-link">咨询列表</a>
-            
+
             <div class="keep-open btn-group" title="列">
             <button type="button" class="btn btn-default btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding:0px 5px; border:0px">
             <i class="glyphicon glyphicon-list"></i>
@@ -305,7 +374,7 @@
                             <th class="shoujixs" id="tdd1">编号</th>
                             <th id="tdd2">状态</th>
                             <th id="tdd3"><a href="javascript:void(0)" onClick="paixu('zx_time')">咨询时间 <i class="icon icon-angle-down"></i></a></th>
-                            <th class="shoujixs" id="tdd4">所属门店</th>              
+                            <th class="shoujixs" id="tdd4">所属门店</th>
                             <th class="shoujixs" id="tdd5">患者姓名</th>
                             <th class="shoujixs" id="tdd6"><a href="javascript:void(0)" onClick="paixu('yuyueTime')">预约日期 <i class="icon icon-angle-down"></i></a></th>
                             <th class="shoujixs" id="tdd7">联系方式</th>
@@ -324,7 +393,7 @@
                             <th class="shoujixs" id="tdd14"><a href="javascript:void(0)" onClick="paixu('huifangcishu')">回访次数 <i class="icon icon-angle-down"></i></a></th>
                             <th class="shoujixs" id="tdd15"><a href="javascript:void(0)" onClick="paixu('xiaofei')">消费 <i class="icon icon-angle-down"></i></a></th>
 							<!-- <th class="shoujixs" id="tdd16">住院</th> -->
-                            <th class="shoujixs" id="tdd17">到诊状态</th>
+<!--                            <th class="shoujixs" id="tdd17">到诊状态</th>-->
                             <th id="tdd18">操作详情</th>
                         </tr>
                     </thead>
@@ -334,15 +403,15 @@
                             <td class="shoujixs" id="tdd1" style="white-space:nowrap">
                               <div class="checkbox-inline b-label">
                                  <input id="quanxuan" name="quanxuan[]" type="checkbox" value="{$vo.zx_ID}">
-                              </div>                            
+                              </div>
                                {$i}
                               <!--{$vo.zx_ID}-->
                             </td>
                             <td id="tdd2"><if condition="$vo.shifoudaozhen eq 0"><span class="badge badge-info">已到诊</span><elseif condition="$vo.shifouyuyue eq 0"/><span class="badge badge-warning">有预约</span><else /><span class="badge">仅咨询</span></if></td>
                             <td id="tdd3">
-                              <php> 
+                              <php>
                                    $a1 = date('Y-m-d');
-                                   $a2 = substr($vo[zx_time],0,10);				 
+                                   $a2 = substr($vo[zx_time],0,10);
                                    $a3 = (strtotime($a1) - strtotime($a2));
                                    $a4 =  substr($vo[zx_time],5,11);
                                     if( $a1 ==  $a2){
@@ -360,10 +429,10 @@
                             <td class="shoujixs" id="tdd6">
                               <php>
                                    $a1 = date('Y-m-d');
-                                   $a2 = substr($vo[yuyueTime],0,10);	 
+                                   $a2 = substr($vo[yuyueTime],0,10);
                                    $a3 = (strtotime($a2) - strtotime($a1));
                                    $a4 =  substr($vo[yuyueTime],5,11);
-                                  
+
                                     if( $a1 ==  $a2){
                                        echo "<font color='#FF0000'>今天".$a4."</font>";
                                     }elseif($a3  == 86400){
@@ -383,12 +452,12 @@
                             <td class="shoujixs" id="tdd7">
                              <php>
                               if($vo[shouji]!=''){
-                                  if(in_array($vo[yy_ID],$shoujixianshi) or $vo[userID]==$_SESSION['username_lf'] or $_SESSION['user_role']==1 or $_SESSION['user_role']==2 or $_SESSION['user_role']==4 or $_SESSION['user_role']==6){     
-                                    echo $vo[shouji];      
+                                  if(in_array($vo[yy_ID],$shoujixianshi) or $vo[userID]==$_SESSION['username_lf'] or $_SESSION['user_role']==1 or $_SESSION['user_role']==2 or $_SESSION['user_role']==4 or $_SESSION['user_role']==6){
+                                 echo substr_replace($vo[shouji],'****',3,4);
                                   }else{
                                   echo substr_replace($vo[shouji],'****',3,4);
-                                  } 
-                              } 
+                                  }
+                              }
                              </php>
                             </td>
                             <td class="shoujixs" id="tdd20">{$vo.xingbie}</td>
@@ -405,61 +474,60 @@
                             <td class="shoujixs" id="tdd13">{$vo.userchinaname}</td>
                             <td class="shoujixs" id="tdd14"><a href="###" onClick="hfjl('{$vo.zx_ID}','{$vo.hfjh_ID}')" >回访<font color="#FF0000">{$vo.huifangcishu}</font>次</a></td>
                             <td class="shoujixs" id="tdd15">{$vo.xiaofei}</td>
-                            <!-- <td class="shoujixs" id="tdd16">				
-                            <if condition="$vo.shifouzhuyuan eq 0">是 
+                            <!-- <td class="shoujixs" id="tdd16">
+                            <if condition="$vo.shifouzhuyuan eq 0">是
 							<else />否
 							</if>
 							</td> -->
-                            <td id="tdd17" class="shoujixs">
-                              <if condition="$vo.shifoudaozhen eq 0">
-                              <span class="badge badge-info">已经到诊</span>
-                              <else />
-                                  <if condition="($_SESSION['user_role'] eq 1 or $_SESSION['user_role'] eq 2 or $_SESSION['user_role'] eq 6) and $vo.shifouyuyue eq 0 ">
-                                  <a href="###" onClick="querdz('{$vo.zx_ID}','{$_GET['page']}','{$_GET['page_size']}{$dqURLcanshu}','{$vo.huanzeName}','{$vo.shouji|substr=7,11}');"><span class="badge badge-danger">确认到诊</span></a>
-                                  
-                                  <else />
-                                  <span class="badge">尚未到诊</span>
-                                  </if>
-                              </if>
-                            </td>
-                            <td id="tdd18">   <!--操作详情-->                       
+<!--                            <td id="tdd17" class="shoujixs">-->
+<!--                              <if condition="$vo.shifoudaozhen eq 0">-->
+<!--                              <span class="badge badge-info">已经到诊</span>-->
+<!--                              <else />-->
+<!--                                  <if condition="($_SESSION['user_role'] eq 1 or $_SESSION['user_role'] eq 2 or $_SESSION['user_role'] eq 6) and $vo.shifouyuyue eq 0 ">-->
+<!--                                  <a href="###" onClick="querdz('{$vo.zx_ID}','{$_GET['page']}','{$_GET['page_size']}{$dqURLcanshu}','{$vo.huanzeName}','{$vo.shouji|substr=7,11}');"><span class="badge badge-danger">确认到诊</span></a>-->
+<!--                                  -->
+<!--                                  <else />-->
+<!--                                  <span class="badge">尚未到诊</span>-->
+<!--                                  </if>-->
+<!--                              </if>-->
+<!--                            </td>-->
+                            <td id="tdd18">   <!--操作详情-->
 							 <php>
 							      if($role_ID==5 and $vo['userID']!=$dquser_ID and !in_array($vo['yy_ID'],$chakanxiangqing)){
 								     echo '<span class="badge"><i class="icon-info-sign"></i> 无操作权限</span>';
-								  }else{						
+								  }else{
 							 </php>
                                <!--<a href="javascript:void(0);" onClick="duoyong('{$vo.zx_ID}','{$_GET['page']}','{$_GET['page_size']}','{$dqURLcanshu}','{$Think.const.DQURL}Updatezixun/update?page={$dqpage}&page_size={$_GET['page_size']}&zx_ID={$vo.zx_ID}{$dqURLcanshu}')" class="btn btn-white btn-sm" title="{$vo.yuyueBeizhu}">查看详情</a>&nbsp;-->
                                <a href="{$Think.const.DQURL}Updatezixun/update?page={$dqpage}&page_size={$_GET['page_size']}&zx_ID={$vo.zx_ID}{$dqURLcanshu}" class="btn btn-white btn-sm" title="{$vo.yuyueBeizhu}">查看详情</a>&nbsp;
 
                                <!-- <a href="javascript:void(0);" onClick="javascript:duanxin('{$vo.zx_ID}');" class="btn btn-white btn-sm">短信</a> -->
-							   
-							   
-							   
+
                               <if condition="$vo.shifoudaozhen eq 0">
                               <span class="badge badge-info">已经到诊</span>
                               <else />
                                   <if condition="($_SESSION['user_role'] eq 1 or $_SESSION['user_role'] eq 2 or $_SESSION['user_role'] eq 6) and $vo.shifouyuyue eq 0 ">
                                   <a href="###" onClick="querdz('{$vo.zx_ID}','{$_GET['page']}','{$_GET['page_size']}{$dqURLcanshu}','{$vo.huanzeName}','{$vo.shouji|substr=7,11}');"><span class="badge badge-danger">确认到诊</span></a>
-                                  
+
                                   <else />
                                   <span class="badge">尚未到诊</span>
                                   </if>
                               </if>
-                         
-							   
-							   
-							   
-							   
+                                <php>
+                                    $now = time();
+                                    $start = strtotime('+25 days',strtotime($vo[zx_time]));
+                                    $end = strtotime('+1 month',strtotime($vo[zx_time]) );
+                                    if( $now >= $start && $now <= $end){echo '保留';}else{echo 22;}
+                                </php>
 							 <php>
 								  }
-						 	</php> 
+						 	</php>
                             </td>
                         </tr>
                         <php>
                               if($vo[huanzeName]!=''){
                         </php>
                         <php>
-                              } 
+                              }
                         </php>
                         <tr class="visible-xs" style="background:#ECECEC;">
                           <td colspan="24" <if condition="$vo.huanzeName EQ ''">style="display:none"</if>>
@@ -469,12 +537,12 @@
                             </if>
                              <php>
                               if($vo[shouji]!=''){
-                                  if(in_array($vo[yy_ID],$shoujixianshi) or $vo[userID]==$_SESSION['username_lf'] or $_SESSION['user_role']==1 or $_SESSION['user_role']==2 or $_SESSION['user_role']==4 or $_SESSION['user_role']==6){     
-                                  echo '<small> 电话：'.$vo[shouji].'</small>';      
+                                  if(in_array($vo[yy_ID],$shoujixianshi) or $vo[userID]==$_SESSION['username_lf'] or $_SESSION['user_role']==1 or $_SESSION['user_role']==2 or $_SESSION['user_role']==4 or $_SESSION['user_role']==6){
+                                  echo '<small> 电话：'.$vo[shouji].'</small>';
                                   }else{
                                   echo '<small> 电话：'.substr_replace($vo[shouji],'****',3,4).'</small>';
-                                  } 
-                              } 
+                                  }
+                              }
                               </php>
                           </td>
                         </tr>
@@ -504,6 +572,7 @@
                              <input type="hidden" name="URLcanshu" value="{$dqURLcanshu}">
                              <a href="javascript:shanchudz();" class="btn btn-white btn-sm" />删除</a>
                              <a href="__URL__/manage_Excle?{$dqURLcanshu}" class="btn btn-white btn-sm" onClick="if(confirm('确认导出?可能耗时较长，请耐心等待')) return true;else return false;">全部导出</a>
+                             <a id="fenpeiadd" class="btn btn-white btn-sm" onClick="">分配</a>
                             </td>
                             <td align="right" >
                             <div style="height:30px; overflow:hidden">
@@ -512,19 +581,239 @@
                           </td>
                         </tr>
                 </table>
-                </form>     
+                </form>
         </div>
-         
+
     </div>
 </div>
 </div>
 </div>
-<!-- 全局js --> 
-<script src="{$Think.const.JS_URL}/jquery.min.js"></script> 
-<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script> 
-<!-- layerjs --> 
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="fenpeikehu">
+    <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:310px; height:250px; left:50%; margin-left:-155px;">
+        <div class="layui-layer-title" style="cursor: move;">分配客户</div>
+        <div class="layui-layer-content">
+            <div class="animated">
+                <form action="__URL__/yy_update" method="post" class="form-horizontal">
+                    <div class="ibox float-e-margins" style="margin-bottom:0px;">
+                        <div class="ibox-content">
+                            <div class="input-group m-b" style="margin-bottom:5px;"><span class="input-group-addon">客服</span>
+                                <select class="form-control" name="yy_name" type="text" id="fuzhi1" value="" >
+                                    <volist name="zixunyuan1" id="zixunyuan11">
+                                        <option value="{$zixunyuan11.user_ID}">{$zixunyuan11.userchinaname}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                            <div class="form-group" align="center" style="margin-bottom:5px;">
+                                <p style="background: #29b578; width: 9rem; height: 3rem; line-height: 3rem; color: #fff;  letter-spacing: 1px;margin-top: 1rem;"><sapn style="cursor: pointer;" onclick="aa();">确定修改</sapn></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <span class="layui-layer-setwin" id="fenpeixx"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span>
+    </div>
+</div>
+
+
+<div class="layui-layer-shade" style="z-index:19891019; background:url({$Think.const.IMG_URL}/kong.png); display:none;" id="stainapply">
+    <div class="layui-layer layui-anim layui-layer-page layer-ext-moon" style="z-index: 19891020; width:310px; height:250px; left:50%; margin-left:-155px;">
+        <div class="layui-layer-title" style="cursor: move;">保留客户申请</div>
+        <div class="layui-layer-content">
+            <div class="animated">
+                <form action="__URL__/yy_update" method="post" class="form-horizontal">
+                    <div class="ibox float-e-margins" style="margin-bottom:0px;">
+                        <div class="ibox-content">
+                            <div class="input-group m-b" style="margin-bottom:5px;">
+<!--                                <select class="form-control" name="yy_name" type="text" id="fuzhi1" value="" >-->
+<!--                                    <volist name="zixunyuan1" id="zixunyuan11">-->
+<!--                                        <option value="{$zixunyuan11.user_ID}">{$zixunyuan11.userchinaname}</option>-->
+<!--                                    </volist>-->
+<!--                                </select>-->
+                                    <span>图片：</span>
+                                    <span class="add choose">添加</span>
+                                <input type="file" name="" id="choose-file" multiple="multiple" style="opacity: 0"/>
+                                <!--<input type="file" name="" id="choose-file" />-->
+                            </div>
+                            <div class="input-group m-b" style="margin-bottom:5px;">
+                                <ul class="file-list ">
+
+                                </ul>
+                            </div>
+
+                            <div class="form-group" align="center" style="margin-bottom:5px;">
+                                <p style="background: #29b578; width: 9rem; height: 3rem; line-height: 3rem; color: #fff;  letter-spacing: 1px;margin-top: 1rem;"><sapn style="cursor: pointer;" onclick="confirmapply();">确定申请</sapn></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <span class="layui-layer-setwin" id="applyxx"><a class="layui-layer-ico layui-layer-close layui-layer-close1" href="javascript:;"></a></span>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="{$Think.const.JS_URL}/jquery.min.js"></script>
+<script src="{$Think.const.JS_URL}/bootstrap.min.js?v=3.3.5"></script>
+<!-- layerjs -->
 <script src="{$Think.const.JS_URL}/plugins/layer/layer.min.js"></script>
 <script>
+
+
+    $(function () {
+        $('.choose').click(function(){
+            $('#choose-file').click();
+        })
+        ////////////////////////////////////////////////图片上传//////////////////////////////////////////////
+        //声明变量
+        var $button = $('#upload'),
+            //选择文件按钮
+            $file = $("#choose-file"),
+            //回显的列表
+            $list = $('.file-list'),
+            //选择要上传的所有文件
+            fileList = [];
+        //当前选择上传的文件
+        var curFile;
+        // 选择按钮change事件，实例化fileReader,调它的readAsDataURL并把原生File对象传给它，
+        // 监听它的onload事件，load完读取的结果就在它的result属性里了。它是一个base64格式的，可直接赋值给一个img的src.
+        $file.on('change', function (e) {
+            //上传过图片后再次上传时限值数量
+            var numold = $('.file-list li').length;
+            if(numold >= 6){
+                layer.alert('最多上传6张图片');
+                return;
+            }
+            //限制单次批量上传的数量
+            var num = e.target.files.length;
+            var numall = numold + num;
+            if(num >6 ){
+                layer.alert('最多上传6张图片');
+                return;
+            }else if(numall > 6){
+                layer.alert('最多上传6张图片');
+                return;
+            }
+            //原生的文件对象，相当于$file.get(0).files;//files[0]为第一张图片的信息;
+            curFile = this.files;
+            curFile = $file.get(0).files;
+            console.log(curFile);
+            //将FileList对象变成数组
+            fileList = fileList.concat(Array.from(curFile));
+            //console.log(fileList);
+            for (var i = 0, len = curFile.length; i < len; i++) {
+                reviewFile(curFile[i])
+            }
+            $('.file-list').fadeIn(2500);
+        })
+
+
+        function reviewFile(file) {
+            //实例化fileReader,
+            var fd = new FileReader();
+            //获取当前选择文件的类型
+            var fileType = file.type;
+            //调它的readAsDataURL并把原生File对象传给它，
+            fd.readAsDataURL(file);//base64
+            // console.log(file);
+            //监听它的onload事件，load完读取的结果就在它的result属性里了
+            fd.onload = function () {
+                if (/^image\/[jpeg|png|jpg|gif]/.test(fileType)) {
+                    $list.append('<li class="file-item"><img src="' + this.result + '" alt="" height="70"><span class="file-del"><i class="iconfont ">&#xe636;</i></span></li>').children(':last').hide().fadeIn(2500);
+                } else {
+                    $list.append('<li class="file-item"><span class="file-name">' + file.name + '</span><span class="file-del"><i class="iconfont ">&#xe636;</i></span></li>')
+                }
+
+            }
+
+        }
+
+        //点击删除按钮事件：
+        $(".file-list").on('click', '.file-del', function () {
+            let $parent = $(this).parent();
+            console.log($parent);
+            let index = $parent.index();
+            fileList.splice(index, 1);
+            $parent.fadeOut(850, function () {
+                $parent.remove()
+            });
+            var filess = document.getElementById('choose-file');
+            filess.value = '';
+        });
+        //点击上传按钮事件：
+        $button.on('click', function () {
+            // var catgory = $('#catgory').val();
+            // var price = $('#price').val();
+            // var desc = $('#desc').val();
+            // var stock = $('#stock').val();
+            // var status = $("input[type='radio']:checked").val();
+            // var reg = /^[1-9]\d*$/;
+            // if (!(reg.test(stock))) {
+            //     layer.alert('商品库存为整数!');
+            //     return;
+            // }
+            // else if (status == null) {
+            //     layer.alert('请输入商品显示状态');
+            //     return;
+            // }
+            // else if (catgory == '') {
+            //     layer.alert('请输入商品分类');
+            //     return;
+            // }
+            // else if (price == '') {
+            //     layer.alert('请输入商品价格');
+            //     return;
+            // }
+            // else if (stock == '') {
+            //     layer.alert('请输入商品库存');
+            //     return;
+            // }
+            // else if (fileList.length == 0) {
+            //     layer.alert('请选择商品图片');
+            //     return;
+            // }
+            if(fileList.length > 6){
+                layer.alert('最多允许上传6张图片');
+                return;
+            } else {
+                var formData = new FormData();
+                for (var i = 0, len = fileList.length; i < len; i++) {
+                    //console.log(fileList[i]);
+                    formData.append('upfile[]', fileList[i]);
+                }
+                formData.append('name', name);
+                // formData.append('catgory', catgory);
+                // formData.append('price', price);
+                // formData.append('desc', desc);
+                // formData.append('stock', stock);
+                // formData.append('status', status);
+                // console.log(formData);
+                $.ajax({
+                    url: 'tp5.com/index.php/index/customers/imgtest.php',
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.status == '1') {
+                            layer.msg(data.content, {icon: 6});
+                        } else if (data.status == '2') {
+                            layer.msg(data.content, {icon: 1});
+                        }
+                    }
+                })
+            }
+        })
+    })
+
+
+    $('#fenpeiadd').on('click', function(){
+        $('#fenpeikehu').show()
+    });
+    $('#fenpeixx').on('click', function(){
+        $('#fenpeikehu').hide()
+    });
 function duoyong(id,page,page_size,cansu,url){
 duoyongid = id;
 parent.layer.open({
@@ -544,7 +833,7 @@ parent.layer.open({
 	  }
 	  });
 	  var duoyongida='#gb_'+duoyongid+'a';
-	  if ($(duoyongida)){ 
+	  if ($(duoyongida)){
 	  $.ajax({
 	  type:"post",
 	  url:"{$Think.const.DQURL}ManageZx/managexqa",
@@ -553,9 +842,9 @@ parent.layer.open({
 	  $(duoyongida).html(msg);
 	  }
 	  });
-	  } 
+	  }
 	  var duoyongidb='#gb_'+duoyongid+'b';
-	  if ($(duoyongidb)){ 
+	  if ($(duoyongidb)){
 	  $.ajax({
 	  type:"post",
 	  url:"{$Think.const.DQURL}ManageZx/managexqb",
@@ -564,7 +853,7 @@ parent.layer.open({
 	  $(duoyongidb).html(msg);
 	  }
 	  });
-	  } 
+	  }
     }
 });
 };
@@ -580,7 +869,7 @@ parent.layer.open({
 };
 function querdz(zx_id,page,page_size,huanzeName,shouji){
 parent.layer.confirm('确认到诊？ 姓名：'+huanzeName+' 手机号尾号为'+shouji, {
-    btn: ['确认到诊','取消操作'], 
+    btn: ['确认到诊','取消操作'],
     area: ['310px', ''],
     shade: false //不显示遮罩
 }, function(){
@@ -591,7 +880,7 @@ location.href = '{$Think.const.DQURL}Updatezixun/daozhen?zixunID='+zx_id+'&page=
 };
 function shanchudz(){
 parent.layer.confirm('确定删除？ 删除不能恢复!', {
-    btn: ['确认删除','取消操作'], 
+    btn: ['确认删除','取消操作'],
     shade: false //不显示遮罩
 }, function(){
 $('#shanchutj').submit()
@@ -599,6 +888,10 @@ $('#shanchutj').submit()
 
 });
 };
+function fenpei() {
+
+
+}
 function hfjl(zx_ID,hfjh_id){
 parent.layer.open({
     type: 2,
