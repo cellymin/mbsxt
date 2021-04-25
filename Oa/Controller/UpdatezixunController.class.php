@@ -248,6 +248,14 @@ class UpdatezixunController extends \Component\AdminController
 		$zixun = $huanze->query('select * from oa_managezx where zx_ID = ' . $zx_ID . '');
 		$chushiyyzt = $zixun[0]['shifouyuyue'];
 
+		$shouji = $_POST['shouji'];
+		$haoma = m('huanzeyuyue');
+		$haoma1 = $haoma->where('shouji= \'' . $shouji . '\' AND zx_ID!=\''.$zx_ID.'\'')->select();
+		$haoma2 = $zonghe->where('shouji= \'' . $shouji . '\' AND zx_ID!=\''.$zx_ID.'\'')->select();
+		if((!empty($haoma1) || !empty($haoma2)) && intval($shouji)>0){
+			js_alert('', '修改失败，手机号重复');
+			exit();
+		}
 		if ($zixun[0]['shifouyuyue'] == 0) {
 			if (substr($oldyytime, 0, 10) != substr($yuyueshijian, 0, 10)) {
 				if (empty($yuyueshijian)) {
