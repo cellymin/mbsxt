@@ -197,7 +197,7 @@ class IndexController extends \Component\AdminController
 		$benyue = date('Y-m');
 		$timestamp = strtotime($today);
 		$shangyueFirstday = date('Y-m-01', strtotime(date('Y', $timestamp) . '-' . (date('m', $timestamp) - 1) . '-01'));
-		$shangyueLastday = last_month_lastday($timestamp);
+		$shangyueLastday = last_month_today($timestamp);
 		$shangyueLastday = substr($shangyueLastday, 0, 10);
 		$shengyutian = date('t', time()) - date('d');
 		$benyueFirstday = date('Y-m-01');
